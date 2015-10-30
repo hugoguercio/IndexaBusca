@@ -8,7 +8,7 @@ package indexa.busca;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import static java.lang.StrictMath.sqrt;
+import java.text.Normalizer;
 
 public class Construtor {
     
@@ -33,28 +33,30 @@ public class Construtor {
         //
         
         
-        //ArrayList<String> lines = new ArrayList<String>();
+
         /*
-            Lê o arquivo
+            Esse método deve:
+        -Ler o arquivo  OK
+        -Tratar uma linha   OK
+        -Identificar as palavras da linha
+        -Criar o índice invertido
         */
-        
+        Documento d = new Documento();
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl"))){            
-            // Atualiza variáveis
-            
+            // Atualiza variáveis            
             while ((currentLine = br.readLine()) != null) {                             
-               lineCount++;
-               sum += currentLine.length();
-               varianciaSum += (currentLine.length()-media)*(currentLine.length()-media);
-               //lines.add(currentLine);
-               
+//               lineCount++;
+//               sum += currentLine.length();
+//               varianciaSum += (currentLine.length()-media)*(currentLine.length()-media);
+               currentLine = d.trataLinha(currentLine);
             }
             
              
            
             //Imprime alguma informação
-            System.out.println("Document Count: " + lineCount);
-            System.out.println("Media:" + this.media(sum, lineCount));
-            System.out.println("Variancia:" + this.variancia(varianciaSum, lineCount));
+//            System.out.println("Document Count: " + lineCount);
+//            System.out.println("Media:" + this.media(sum, lineCount));
+//            System.out.println("Variancia:" + this.variancia(varianciaSum, lineCount));
             
             
         } catch (IOException e) {
