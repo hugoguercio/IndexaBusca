@@ -17,7 +17,8 @@ public class IndexaBusca {
     
     public static void main(String[] args) {
         Construtor c = new Construtor();
-        c.readFile();
+        
+        //c.readFile();
         
 //        
 //        Documento d = new Documento();

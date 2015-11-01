@@ -6,9 +6,11 @@ package indexa.busca;
  */
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Construtor {
     
@@ -27,11 +29,11 @@ public class Construtor {
     */
     
     
-    public void readFile (){
+    public void readFile (File file){
         /*
             Variáveis
         */
-      
+      System.out.println("entrou no file reader ");
         String currentLine;
         int lineCount,sum;
         double varianciaSum;
@@ -49,8 +51,9 @@ public class Construtor {
         /*
         HARD CODED
         */
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl"))){            
-            // Atualiza variáveis            
+        try (BufferedReader br = new BufferedReader(new FileReader(file))){//(new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl"))){            
+            // Atualiza variáveis    
+            HashSet set = new HashSet();
             while ((currentLine = br.readLine()) != null ) {                             
 //               lineCount++;
 //               sum += currentLine.length();
@@ -63,17 +66,19 @@ public class Construtor {
                 doc = d.stringDocumento(currentLine);
                 doc = d.trataLinha(doc);
                 ArrayList<Palavra> listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
-
+//                for (int percorre = 0; percorre<listaPalavras.size();percorre++){
+//                    set.add(listaPalavras.get(percorre).getPalavra());
+//                }
                 //System.out.println(currentLine);
             }
 
-           
+//           System.out.println("Palavras Unicas: "+set.size());
             //Imprime alguma informação
 //            System.out.println("Document Count: " + lineCount);
 //            System.out.println("Media:" + this.media(sum, lineCount));
 //            System.out.println("Variancia:" + this.variancia(varianciaSum, lineCount));
             
-            
+            System.out.println("terminou");
         } catch (IOException e) {
             e.printStackTrace();
         }
