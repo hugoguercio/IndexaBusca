@@ -12,16 +12,14 @@ package indexa.busca;
  */
 public class Palavra {
     private String palavra;
-    private String documento;
     private int count;
     
     /*
     Construtor
     */
         
-    public Palavra(String palavra, String documento, int count) {
+    public Palavra(String palavra, int count) {
         this.palavra = palavra;
-        this.documento = documento;
         this.count = count;
     }
     
@@ -37,14 +35,6 @@ public class Palavra {
         this.palavra = palavra;
     }
 
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
     public int getCount() {
         return count;
     }
@@ -53,5 +43,20 @@ public class Palavra {
         this.count = count;
     }
     
+    //@Override para o metodo equals comparar somente a palavra, ignorando contagens
+    public boolean equals(Palavra palavra){
+        if(palavra == null){
+            return false;
+        }
+        if (getClass() != palavra.getClass()) {
+        return false;
+        }
+        final Palavra p = (Palavra) palavra;
+        if ((this.palavra == null) ? (p.getPalavra() != null) : !this.palavra.equals(p.palavra)) {
+            return false;
+        }
+        return true;
+    }
+
     
 }
