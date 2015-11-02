@@ -5,6 +5,7 @@ package indexa.busca;
  * @author Qih
  */
 
+import com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,8 +14,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Construtor {
+    private ArrayList<Documento> documentos;
     
-    
+    public void insereDocumento(Documento d){
+        if(this.documentos == null){
+            this.documentos = new ArrayList<Documento>();
+        }
+        this.documentos.add(d);
+    }
+    public Documento getIndex(int i){
+        return this.documentos.get(i);
+    }
     /*
     Esse método deve:
         -Ler o arquivo
@@ -29,56 +39,35 @@ public class Construtor {
     */
     
     
-    public void readFile (File file){
-        /*
-            Variáveis
-        */
-      System.out.println("entrou no file reader ");
+    public void readFile (){//File file){
         String currentLine;
-        int lineCount,sum;
-        double varianciaSum;
-        lineCount = 0;
-        sum = 0;
-        varianciaSum=0;
+        TabelaHash table = new TabelaHash();
+
         
-        /*
-        HARD CODED
-        */
-        int media = 395;
-        
-        
-        Documento d = new Documento();
-        /*
-        HARD CODED
-        */
-        try (BufferedReader br = new BufferedReader(new FileReader(file))){//(new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl"))){            
+        //try (BufferedReader br = new BufferedReader(new FileReader(file))){
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl"))){            
+            
             // Atualiza variáveis    
             HashSet set = new HashSet();
             while ((currentLine = br.readLine()) != null ) {                             
-//               lineCount++;
-//               sum += currentLine.length();
-//               varianciaSum += (currentLine.length()-media)*(currentLine.length()-media);
-
                 String doc;
-                //System.out.println("ID do documento: "+d.identificaDocumento(currentLine));
-                //System.out.println("Documento: "+d.stringDocumento(currentLine));
-                //System.out.println("Documento tratado: "+d.trataLinha(d.stringDocumento(currentLine)));
-                doc = d.stringDocumento(currentLine);
-                doc = d.trataLinha(doc);
-                ArrayList<Palavra> listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
-//                for (int percorre = 0; percorre<listaPalavras.size();percorre++){
-//                    set.add(listaPalavras.get(percorre).getPalavra());
-//                }
-                //System.out.println(currentLine);
+                Documento d = new Documento();
+                if(d.identificaDocumento(currentLine) != "id não encontrado"){
+                    d = new Documento(d.identificaDocumento(currentLine), d.identificaPalavras(currentLine).length);
+                    this.insereDocumento(d);
+                    doc = d.stringDocumento(currentLine);                
+                    doc = d.trataLinha(doc);                
+                    ArrayList<Palavra> listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
+                    for (int percorre = 0; percorre<listaPalavras.size();percorre++){
+                        //set.add(listaPalavras.get(percorre).getPalavra());
+                        Par par = new Par(d.getDoc_id(),listaPalavras.get(percorre).getCount());
+                        table.insere(listaPalavras.get(percorre).getPalavra(), par);
+                    }
+                }
             }
-
+            System.out.println(table.getInseridos());
 //           System.out.println("Palavras Unicas: "+set.size());
-            //Imprime alguma informação
-//            System.out.println("Document Count: " + lineCount);
-//            System.out.println("Media:" + this.media(sum, lineCount));
-//            System.out.println("Variancia:" + this.variancia(varianciaSum, lineCount));
-            
-            System.out.println("terminou");
+//            System.out.println("Quantidade de documentos: "+ this.documentos.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,13 +75,6 @@ public class Construtor {
     
     
     
-    public double media(int sum, int count){
-        return sum/count;
-    }
-    
-    public double variancia(double somaQuadrados, int tamanho)
-    {
-        return somaQuadrados/tamanho;
-    }
+
 
 }

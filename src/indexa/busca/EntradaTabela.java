@@ -12,7 +12,22 @@ import java.util.ArrayList;
  * @author Qih
  */
 public class EntradaTabela {
-    private String chave;
-    private ArrayList<NoPalavra> listaPalavras;
-            
+    private ArrayList<NoPalavra> indiceInvertido;
+
+    public EntradaTabela() {
+        this.indiceInvertido = null;
+    }
+
+
+    public ArrayList<NoPalavra> getListaPalavras() {
+        return indiceInvertido;
+    }
+
+    public void setListaPalavras(ArrayList<NoPalavra> listaPalavras) {
+        this.indiceInvertido = listaPalavras;
+    }
+    
+    public void addPar(String palavra, Par par){
+        this.indiceInvertido.add(new NoPalavra(palavra, par));
+    }
 }

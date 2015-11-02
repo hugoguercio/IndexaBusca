@@ -15,4 +15,12 @@ public class NoPalavra {
     private String palavra;
     private ListaPares pares;
     private NoPalavra prox;
+
+    public NoPalavra(String palavra, Par par) {
+        this.palavra = palavra;
+        this.pares.insereOrdenado(par);
+        this.prox = null;
+    }
+    
+    
 }

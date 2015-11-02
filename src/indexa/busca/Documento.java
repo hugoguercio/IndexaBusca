@@ -19,6 +19,43 @@ import java.util.regex.Pattern;
     Essa classe tem como objetivo representar um documento
 */
 public class Documento {
+    /*
+        Variáveis
+    */
+    private String doc_id;
+    private int totalPalavras;
+
+    /*
+        Construtor, Getters e Setters
+    */
+    public Documento(){
+        
+    }
+    
+    public Documento(String doc_id, int totalPalavras) {
+        this.doc_id = doc_id;
+        this.totalPalavras = totalPalavras;
+    }
+
+    public String getDoc_id() {
+        return doc_id;
+    }
+
+    public void setDoc_id(String doc_id) {
+        this.doc_id = doc_id;
+    }
+
+    public int getTotalPalavras() {
+        return totalPalavras;
+    }
+
+    public void setTotalPalavras(int totalPalavras) {
+        this.totalPalavras = totalPalavras;
+    }
+    
+    /*
+        Métodos
+    */
     
     /*
         Esse método recebe a linha do arquivo e retorna o id_doc

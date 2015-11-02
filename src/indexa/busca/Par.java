@@ -29,7 +29,8 @@ public class Par {
         this.count = count;
     }
 
-    public Par(String doc_id) {
+    public Par(String doc_id, int count) {
         this.doc_id = doc_id;
+        this.count = count;
     }
 }

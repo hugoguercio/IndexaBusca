@@ -5,17 +5,39 @@
  */
 package indexa.busca;
 
+
+import java.util.Vector;
+
 /**
  *
  * @author Qih
  */
 public class TabelaHash {
     //TEM QUE MUDAR ESSE VALOR, QUAL SERIA O VALOR DE S ?!
-    private static final int S = 16;
+    private int S = 4000000;
+    private int quantidadeInseridos = 0;
+    //private EntradaTabela[] posicao = new EntradaTabela[S];
+    private Vector<EntradaTabela> posicao = new Vector<EntradaTabela>(S);
     
-    private EntradaTabela posicao;
     
-    
+    public void insere(String palavra, Par par){        
+        /*
+        -identifica a posição fazendo hash da palavra
+        -insere na posição o par
+        */
+        int posicaoIdentificada = 0;
+        NoPalavra noPalavra = new NoPalavra(palavra, par);
+        EntradaTabela entrada = new EntradaTabela();
+        entrada.addPar(palavra, par);
+        this.posicao.add(posicaoIdentificada, entrada);
+        quantidadeInseridos++;
+    }
+    public int getInseridos(){
+        return this.quantidadeInseridos;
+    }
+
+    public TabelaHash() {
+    }
     
     
 }

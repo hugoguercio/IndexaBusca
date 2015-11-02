@@ -201,7 +201,7 @@ public class FrameInicio extends javax.swing.JFrame {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 Construtor c = new Construtor();
-                c.readFile(file);
+                //c.readFile(file);
                 
             } else {
             

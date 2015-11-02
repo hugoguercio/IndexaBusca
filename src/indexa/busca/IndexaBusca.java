@@ -1,8 +1,8 @@
 
 package indexa.busca;
 
-import java.text.Normalizer;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileReader;
 
 /**
  *
@@ -14,11 +14,13 @@ public class IndexaBusca {
      * Main
      * 
      */
-    
+    public TabelaHash table;
     public static void main(String[] args) {
         Construtor c = new Construtor();
         
-        //c.readFile();
+        c.readFile();
+        Documento d = c.getIndex(4000000);
+        System.out.println(d.getDoc_id());
         
 //        
 //        Documento d = new Documento();
