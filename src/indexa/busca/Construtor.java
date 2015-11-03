@@ -5,9 +5,12 @@ package indexa.busca;
  * @author Qih
  */
 
-import com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets;
+import indexa.busca.Estruturas.Documento;
+import indexa.busca.Estruturas.TabelaHash;
+import indexa.busca.Estruturas.Palavra;
+import indexa.busca.Estruturas.Par;
+import indexa.busca.Estruturas.NoPalavra;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,11 +50,13 @@ public class Construtor {
         //try (BufferedReader br = new BufferedReader(new FileReader(file))){
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl"))){            
             
-            // Atualiza variáveis    
+            
             HashSet set = new HashSet();
-            while ((currentLine = br.readLine()) != null ) {                             
+            int rs = 0;
+            while ((currentLine = br.readLine()) != null && rs<1000 ) {                             
                 String doc;
                 Documento d = new Documento();
+                //Se existe um documento na posição
                 if(d.identificaDocumento(currentLine) != "id não encontrado"){
                     d = new Documento(d.identificaDocumento(currentLine), d.identificaPalavras(currentLine).length);
                     this.insereDocumento(d);
@@ -64,8 +69,32 @@ public class Construtor {
                         table.insere(listaPalavras.get(percorre).getPalavra(), par);
                     }
                 }
+                rs++;
             }
-            System.out.println(table.getInseridos());
+            
+            
+            ///////////////////////////////////////
+            
+            int var=0;
+            
+            // para cada posicao da tabela
+            for (int l=0;l<4000000;l++){
+                //se nao esta vazia
+                if(table.getPosicao(l) !=null){
+                    if(table.getPosicao(l).tamanhoFilhos()>var){
+                        var = table.getPosicao(l).tamanhoFilhos();
+                    }
+                    
+                }   
+            }
+            System.out.println("Posicoes usadas: "+table.getPosicoesUsadas());
+            //System.out.println("Porcentagem das posições utilizadas: "+posicoesUsadas/40000+"%");
+
+            System.out.println("Quantidade de colisões:" + "?");
+            System.out.println("Tamanho do maior filho"+var);
+            
+            
+            
 //           System.out.println("Palavras Unicas: "+set.size());
 //            System.out.println("Quantidade de documentos: "+ this.documentos.size());
         } catch (IOException e) {

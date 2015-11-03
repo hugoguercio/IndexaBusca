@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package indexa.busca;
+package indexa.busca.GUI;
 
+import indexa.busca.Construtor;
 import java.io.File;
 import javax.swing.JFileChooser;
 

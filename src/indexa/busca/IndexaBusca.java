@@ -1,6 +1,8 @@
 
 package indexa.busca;
 
+import indexa.busca.Estruturas.TabelaHash;
+import indexa.busca.Estruturas.Documento;
 import java.io.File;
 import java.io.FileReader;
 
@@ -17,11 +19,7 @@ public class IndexaBusca {
     public TabelaHash table;
     public static void main(String[] args) {
         Construtor c = new Construtor();
-        
         c.readFile();
-        Documento d = c.getIndex(4000000);
-        System.out.println(d.getDoc_id());
-        
 //        
 //        Documento d = new Documento();
 //         String x = "Quem casa quer casa. Porem ninguem casa. Ninguem quer casa tambem. Quer apartamento.";
