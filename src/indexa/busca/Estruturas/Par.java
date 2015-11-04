@@ -10,14 +10,14 @@ package indexa.busca.Estruturas;
  * @author Qih
  */
 public class Par {
-    private String doc_id;
+    private int doc_id;
     private int count;
 
-    public String getDoc_id() {
+    public int getDoc_id() {
         return doc_id;
     }
 
-    public void setDoc_id(String doc_id) {
+    public void setDoc_id(int doc_id) {
         this.doc_id = doc_id;
     }
 
@@ -29,7 +29,7 @@ public class Par {
         this.count = count;
     }
 
-    public Par(String doc_id, int count) {
+    public Par(int doc_id, int count) {
         this.doc_id = doc_id;
         this.count = count;
     }

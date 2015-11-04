@@ -3,8 +3,11 @@ package indexa.busca;
 
 import indexa.busca.Estruturas.TabelaHash;
 import indexa.busca.Estruturas.Documento;
+import indexa.busca.Estruturas.PalavraUnica;
+import indexa.busca.Estruturas.Par;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,6 +23,10 @@ public class IndexaBusca {
     public static void main(String[] args) {
         Construtor c = new Construtor();
         c.readFile();
+        
+        
+        
+        
 //        
 //        Documento d = new Documento();
 //         String x = "Quem casa quer casa. Porem ninguem casa. Ninguem quer casa tambem. Quer apartamento.";

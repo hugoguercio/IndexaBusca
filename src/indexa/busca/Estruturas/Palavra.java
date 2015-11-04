@@ -44,6 +44,7 @@ public class Palavra {
     }
     
     //@Override para o metodo equals comparar somente a palavra, ignorando contagens
+    
     public boolean equals(Palavra palavra){
         if(palavra == null){
             return false;

@@ -7,7 +7,7 @@ package indexa.busca.Estruturas;
 
 
 import indexa.busca.FuncoesHash;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,18 +15,19 @@ import java.util.Vector;
  */
 public class TabelaHash {
     //TEM QUE MUDAR ESSE VALOR, QUAL SERIA O VALOR DE S ?!
-    private NoPalavra[] tabela;    
+    private ArrayList<PalavraUnica>[] tabela;    
     private int S = 4000000;
     private int posicoesUtilizadas = 0;
     private int paresInseridos=0;
     private int colisoes = 0;
+    //ta errado o colisoes
 
     
     public TabelaHash() {
         this.posicoesUtilizadas = 0;
-        this.S = 40000000;
+        this.S = 10000000;
         this.colisoes = 0;
-        this.tabela = new NoPalavra[S];
+        this.tabela = new ArrayList[S];
     }
     
      
@@ -36,10 +37,10 @@ public class TabelaHash {
     public int getColisoes(){
         return this.colisoes;
     }    
-    public NoPalavra getPosicao(int i){
+    public ArrayList getPosicao(int i){
         return this.tabela[i];
     }
-    public NoPalavra[] getTabela() {
+    public ArrayList[] getTabela() {
         return tabela;
     }
     public int getS() {
@@ -62,21 +63,35 @@ public class TabelaHash {
         if(posicaoIdentificada <0){
             posicaoIdentificada = -posicaoIdentificada;            
         }
-        posicaoIdentificada = posicaoIdentificada % 4000000;
+        posicaoIdentificada = posicaoIdentificada % S;
         
-        NoPalavra noPalavra = new NoPalavra(palavra, par);
+//        //teste colisoes
+//        posicaoIdentificada=2;
         //posição era vazia
-        if(tabela[posicaoIdentificada] == null){
-            tabela[posicaoIdentificada] = noPalavra;
-            posicoesUtilizadas++;            
+        PalavraUnica pAux = new PalavraUnica(palavra, par);
+        if(tabela[posicaoIdentificada] == null){                        
+            tabela[posicaoIdentificada] = new ArrayList<PalavraUnica>();
+            tabela[posicaoIdentificada].add(pAux);
+            posicoesUtilizadas++;
         }else{
-            NoPalavra aux = tabela[posicaoIdentificada];
-            while(aux.proximo(aux)!=null){
-                aux = aux.proximo(aux);
+            //Ver se no arraylist da tabela de hash tem alguma palavraUnica com string = palavra
+            boolean palavraNova = true;
+            for(int i=0 ;i<tabela[posicaoIdentificada].size();i++){
+                PalavraUnica pTeste = tabela[posicaoIdentificada].get(i);
+                //Ja tem, então insere o par.
+                if(pTeste.getPalavra().equals(palavra)){
+                    tabela[posicaoIdentificada].get(i).inserePar(par);
+                    palavraNova=false;
+                }
             }
-            aux.setProximo(noPalavra);
-            
+            if(palavraNova){
+                tabela[posicaoIdentificada] = new ArrayList<PalavraUnica>();
+                tabela[posicaoIdentificada].add(pAux);
+                colisoes++;
+                
+            }
         }
+        
         paresInseridos++;
     }
    
