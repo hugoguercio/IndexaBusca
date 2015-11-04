@@ -2,12 +2,6 @@
 package indexa.busca;
 
 import indexa.busca.Estruturas.TabelaHash;
-import indexa.busca.Estruturas.Documento;
-import indexa.busca.Estruturas.PalavraUnica;
-import indexa.busca.Estruturas.Par;
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
 
 /**
  *
@@ -23,6 +17,8 @@ public class IndexaBusca {
     public static void main(String[] args) {
         Construtor c = new Construtor();
         c.readFile();
+        Estatistica e = new Estatistica();
+        //e.captura();
         
         
         

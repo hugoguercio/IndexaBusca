@@ -16,16 +16,17 @@ import java.util.ArrayList;
 public class TabelaHash {
     //TEM QUE MUDAR ESSE VALOR, QUAL SERIA O VALOR DE S ?!
     private ArrayList<PalavraUnica>[] tabela;    
-    private int S = 4000000;
+    
     private int posicoesUtilizadas = 0;
     private int paresInseridos=0;
     private int colisoes = 0;
+    private int naocolidiu=0;
+    private int posicoesDistintasDeColisao=0;
     //ta errado o colisoes
 
     
-    public TabelaHash() {
+    public TabelaHash(int S) {
         this.posicoesUtilizadas = 0;
-        this.S = 10000000;
         this.colisoes = 0;
         this.tabela = new ArrayList[S];
     }
@@ -43,15 +44,30 @@ public class TabelaHash {
     public ArrayList[] getTabela() {
         return tabela;
     }
-    public int getS() {
-        return S;
-    }
+
     public int getPosicoesUtilizadas() {
         return posicoesUtilizadas;
     }
     public int getParesInseridos() {
         return paresInseridos;
     }    
+    public int getNaoColidiu(){
+        return naocolidiu;
+    }
+    
+    public int tamanhoBalde(int i){
+        return tabela[i].size();
+    }
+
+    public int getPosicoesDistintasDeColisao() {
+        return posicoesDistintasDeColisao;
+    }
+
+    public void addPosicoesDistintasDeColisao() {
+        posicoesDistintasDeColisao+=1;
+    }
+    
+    
     
     public void insere(String palavra, Par par){        
         /*
@@ -59,15 +75,13 @@ public class TabelaHash {
         -insere na posição o par
         */
         FuncoesHash funcoes = new FuncoesHash();
-        int posicaoIdentificada = funcoes.hash1(palavra,S);
+        int posicaoIdentificada = funcoes.hash1(palavra,this.tabela.length);
         if(posicaoIdentificada <0){
             posicaoIdentificada = -posicaoIdentificada;            
         }
-        posicaoIdentificada = posicaoIdentificada % S;
+        posicaoIdentificada = posicaoIdentificada % this.tabela.length;
         
-//        //teste colisoes
-//        posicaoIdentificada=2;
-        //posição era vazia
+
         PalavraUnica pAux = new PalavraUnica(palavra, par);
         if(tabela[posicaoIdentificada] == null){                        
             tabela[posicaoIdentificada] = new ArrayList<PalavraUnica>();
@@ -82,14 +96,16 @@ public class TabelaHash {
                 if(pTeste.getPalavra().equals(palavra)){
                     tabela[posicaoIdentificada].get(i).inserePar(par);
                     palavraNova=false;
+                    
                 }
             }
             if(palavraNova){
-                tabela[posicaoIdentificada] = new ArrayList<PalavraUnica>();
+//                tabela[posicaoIdentificada] = new ArrayList<PalavraUnica>();
                 tabela[posicaoIdentificada].add(pAux);
-                colisoes++;
+                naocolidiu++;
                 
             }
+            colisoes++;
         }
         
         paresInseridos++;
@@ -97,3 +113,4 @@ public class TabelaHash {
    
     
 }
+
