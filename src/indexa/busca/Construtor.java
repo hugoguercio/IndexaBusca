@@ -47,12 +47,12 @@ public class Construtor {
         
         //try (BufferedReader br = new BufferedReader(new FileReader(file))){
         try {            
-            FileReader fr = new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl");
+            FileReader fr = new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl");
             BufferedReader br = new BufferedReader(fr);
 
             int rs = 0;
             String doc;
-            while ((currentLine = br.readLine()) != null && rs<500000) {                
+            while ((currentLine = br.readLine()) != null && rs<6) {                
                 //Inicializa um documento
                 Documento d = new Documento();
                 //Se existe um documento na posição
@@ -68,6 +68,7 @@ public class Construtor {
                     this.insereDocumento(d);
                     //Para cada palavra, cria o par <doc_id,count> e insere na tabela de hash
                     for (int percorre = 0; percorre<listaPalavras.size();percorre++){
+                        //System.out.println(listaPalavras.get(percorre).getPalavra());
                         Par par = new Par(d.getDoc_id(),listaPalavras.get(percorre).getCount());
                         table.insere(listaPalavras.get(percorre).getPalavra(), par);
                     }
@@ -91,8 +92,10 @@ public class Construtor {
             System.out.println("Quantidade colisões: " + (table.getColisoes()));
             System.out.println("Posicoes distintas de colisao: " + table.getPosicoesDistintasDeColisao() );
             System.out.println("As colisões foram distribuidas em "+(table.getPosicoesDistintasDeColisao()*100/table.getPosicoesUsadas()) +"% das posições da tabela.");
-            System.out.println("\nMédia de colisões por posição: " +(table.getColisoes()/table.getPosicoesDistintasDeColisao()));
             
+            if(table.getPosicoesDistintasDeColisao()!=0){
+            System.out.println("\nMédia de colisões por posição: " +(table.getColisoes()/table.getPosicoesDistintasDeColisao()));
+            }
 
             br.close();
             fr.close();

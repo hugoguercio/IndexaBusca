@@ -73,7 +73,8 @@ public class Documento {
         Esse método recebe a linha do arquivo e retorna somente as palavras a serem tratadas
     */
     public String stringDocumento(String linha){
-        Pattern pattern = Pattern.compile("comment> \"(.*?)\"@en .");
+        //Pattern pattern = Pattern.compile("comment> \"(.*?)\"@en .");
+        Pattern pattern = Pattern.compile("comment> \"(.*?)\"@");
         Matcher matcher = pattern.matcher(linha);        
         while (matcher.find()) {
             //System.out.println(matcher.group(1));
