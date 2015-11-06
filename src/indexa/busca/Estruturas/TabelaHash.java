@@ -20,7 +20,7 @@ public class TabelaHash {
     private int posicoesUtilizadas = 0;
     private int paresInseridos=0;
     private int colisoes = 0;
-    private int naocolidiu=0;
+    private int palavraNova=0;
     private int posicoesDistintasDeColisao=0;
     //ta errado o colisoes
 
@@ -51,8 +51,8 @@ public class TabelaHash {
     public int getParesInseridos() {
         return paresInseridos;
     }    
-    public int getNaoColidiu(){
-        return naocolidiu;
+    public int getPalavrasNovas(){
+        return palavraNova;
     }
     
     public int tamanhoBalde(int i){
@@ -105,7 +105,7 @@ public class TabelaHash {
             if(palavraNova){
 //                tabela[posicaoIdentificada] = new ArrayList<PalavraUnica>();
                 tabela[posicaoIdentificada].add(pAux);
-                naocolidiu++;
+                this.palavraNova++;
                 
             }
             colisoes++;

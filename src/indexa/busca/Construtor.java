@@ -42,7 +42,7 @@ public class Construtor {
     */ 
     public TabelaHash readFile (){//File file){
         String currentLine;
-        TabelaHash table = new TabelaHash(300000);
+        TabelaHash table = new TabelaHash(500000);
 
         
         //try (BufferedReader br = new BufferedReader(new FileReader(file))){
@@ -52,7 +52,7 @@ public class Construtor {
 
             int rs = 0;
             String doc;
-            while ((currentLine = br.readLine()) != null && rs<458000) {                
+            while ((currentLine = br.readLine()) != null) {                
                 //Inicializa um documento
                 Documento d = new Documento();
                 //Se existe um documento na posição
@@ -74,21 +74,23 @@ public class Construtor {
                 }
                 rs++;
             }
+            
             Estatistica estatistica = new Estatistica();
             table.setPosicoesDistintasDeColisao(estatistica.getArrayTamanhoBaldes(table).size());
             
             /*
                 Prints
             */
+            System.out.println("Terminou de construir a tabela de tamanho: "+table.getTabela().length);
+            System.out.println("Quantidade de documentos inseridos: "+this.documentos.size());
             System.out.println("Posicoes usadas: "+table.getPosicoesUsadas());
             System.out.println("Posicoes usadas em %: "+(table.getPosicoesUsadas()*100/table.getTabela().length)+"%");
             
-            System.out.println("Palavras únicas: "+ (table.getPosicoesUsadas()+table.getColisoes()));
+            System.out.println("Palavras únicas: "+ (table.getPosicoesUsadas()+table.getPalavrasNovas()));
             System.out.println("Quantidade colisões: " + (table.getColisoes()));
             System.out.println("Posicoes distintas de colisao: " + table.getPosicoesDistintasDeColisao() );
             System.out.println("As colisões foram distribuidas em "+(table.getPosicoesDistintasDeColisao()*100/table.getPosicoesUsadas()) +"% das posições da tabela.");
             System.out.println("\nMédia de colisões por posição: " +(table.getColisoes()/table.getPosicoesDistintasDeColisao()));
-            System.out.println("\natr nao colodiu: " + (table.getNaoColidiu())+"  que porra é essa?");
             
 
             br.close();
