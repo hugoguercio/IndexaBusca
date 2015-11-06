@@ -8,6 +8,7 @@ package indexa.busca;
 import indexa.busca.Estruturas.Documento;
 import indexa.busca.Estruturas.Palavra;
 import indexa.busca.Estruturas.Par;
+import indexa.busca.Estruturas.TabelaHash;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -57,6 +58,24 @@ public class Estatistica {
             e.printStackTrace();
         }
     }
+    
+    public ArrayList getArrayTamanhoBaldes(TabelaHash table){
+         ArrayList<Integer> tamanhoDosBaldes = new ArrayList<Integer>();
+        // para cada posicao da tabela
+        for (int l=0;l<table.getTabela().length;l++){
+            //se nao esta vazia
+            if(table.getPosicao(l) !=null){               
+                if(table.tamanhoBalde(l)>1){
+                    //System.out.println("Tamanho do balde da posição"+l+": "+table.getPosicao(l).size());
+                    tamanhoDosBaldes.add(table.tamanhoBalde(l));
+                    
+                }
+            }   
+        }
+        table.setPosicoesDistintasDeColisao(tamanhoDosBaldes.size());
+        return tamanhoDosBaldes;
+    }
+    
     
     public double media(int sum, int count){
         return sum/count;

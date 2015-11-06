@@ -24,6 +24,7 @@ public class Construtor {
         }
         this.documentos.add(d);
     }
+    
     public Documento getIndex(int i){
         return this.documentos.get(i);
     }
@@ -36,78 +37,65 @@ public class Construtor {
             -trataLinha                 (trata as linhas removendo tudo)
             -identificaPalavras         (pega as palavras uma a uma)
             -contaPalavras              (conta as palavras identificadas)
-            -insereHashTable
+            -insereHashTable            (insere um par na tabela de hash)
             
-    */
-    
-    
+    */ 
     public TabelaHash readFile (){//File file){
         String currentLine;
-        TabelaHash table = new TabelaHash(300);
+        TabelaHash table = new TabelaHash(300000);
 
         
         //try (BufferedReader br = new BufferedReader(new FileReader(file))){
         try {            
             FileReader fr = new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl");
             BufferedReader br = new BufferedReader(fr);
-            //HashSet set = new HashSet();
+
             int rs = 0;
-            while ((currentLine = br.readLine()) != null && rs<3) {                             
-                String doc;
+            String doc;
+            while ((currentLine = br.readLine()) != null && rs<458000) {                
+                //Inicializa um documento
                 Documento d = new Documento();
                 //Se existe um documento na posição
                 if(d.identificaDocumento(currentLine) != "id não encontrado"){
+                    //Atribui os campos do objeto documento a partir da linha lida
                     d = new Documento(d.identificaDocumento(currentLine), d.identificaPalavras(currentLine).length);
-                    this.insereDocumento(d);
+                    
+                    //Captura o texto do documento e faz o tratamento
                     doc = d.stringDocumento(currentLine);                
                     doc = d.trataLinha(doc);                
                     ArrayList<Palavra> listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
+                    d.setPalavrasDistintas(listaPalavras.size());
+                    this.insereDocumento(d);
+                    //Para cada palavra, cria o par <doc_id,count> e insere na tabela de hash
                     for (int percorre = 0; percorre<listaPalavras.size();percorre++){
                         Par par = new Par(d.getDoc_id(),listaPalavras.get(percorre).getCount());
                         table.insere(listaPalavras.get(percorre).getPalavra(), par);
-                        //set.add(listaPalavras.get(percorre));
                     }
                 }
                 rs++;
             }
-            
-            
-            
-
-            ArrayList<Integer> tamanhoDosBaldes = new ArrayList<Integer>();
-            // para cada posicao da tabela
-            for (int l=0;l<table.getTabela().length;l++){
-                //se nao esta vazia
-                if(table.getPosicao(l) !=null){               
-                    if(table.tamanhoBalde(l)>1){
-                        System.out.println("Tamanho do balde da posição"+l+": "+table.getPosicao(l).size());
-                        table.addPosicoesDistintasDeColisao();
-                        tamanhoDosBaldes.add(table.tamanhoBalde(l));
-                    }
-                }   
-            }
-            
+            Estatistica estatistica = new Estatistica();
+            table.setPosicoesDistintasDeColisao(estatistica.getArrayTamanhoBaldes(table).size());
             
             /*
                 Prints
             */
-            System.out.println("Posicoes usadas: "+table.getPosicoesUsadas());                        
+            System.out.println("Posicoes usadas: "+table.getPosicoesUsadas());
+            System.out.println("Posicoes usadas em %: "+(table.getPosicoesUsadas()*100/table.getTabela().length)+"%");
+            
             System.out.println("Palavras únicas: "+ (table.getPosicoesUsadas()+table.getColisoes()));
-            System.out.println("Quantidade colisões: " + (table.getColisoes())+"\n");            
+            System.out.println("Quantidade colisões: " + (table.getColisoes()));
+            System.out.println("Posicoes distintas de colisao: " + table.getPosicoesDistintasDeColisao() );
+            System.out.println("As colisões foram distribuidas em "+(table.getPosicoesDistintasDeColisao()*100/table.getPosicoesUsadas()) +"% das posições da tabela.");
+            System.out.println("\nMédia de colisões por posição: " +(table.getColisoes()/table.getPosicoesDistintasDeColisao()));
+            System.out.println("\natr nao colodiu: " + (table.getNaoColidiu())+"  que porra é essa?");
             
-            System.out.println("Posicoes distintas de colisao: " + table.getPosicoesDistintasDeColisao() +"\n");            
-            
-            System.out.println("atr nao colodiu: " + (table.getNaoColidiu())+"  que porra é essa?");
-        
-            //Usando Set 
-            /*
-            System.out.println("Palavras únicas inseridas: "+set.size());
-            System.out.println("Quantidade de colisões :" + (set.size()-table.getPosicoesUsadas()));
-            */
+
             br.close();
             fr.close();
             
         } catch (IOException e) {
+            System.out.println("deu erro no documento: "+this.documentos.size());
             e.printStackTrace();
         }
         return table;

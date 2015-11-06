@@ -26,6 +26,7 @@ public class Documento {
     private String url;
     private int doc_id;
     private int totalPalavras;
+    private int palavrasDistintas;
 
     /*
         Construtor, Getters e Setters
@@ -38,6 +39,14 @@ public class Documento {
         idCounter++;
     }
     public Documento(){
+    }
+
+    public int getPalavrasDistintas() {
+        return palavrasDistintas;
+    }
+
+    public void setPalavrasDistintas(int palavrasDistintas) {
+        this.palavrasDistintas = palavrasDistintas;
     }
 
     public int getDoc_id() {

@@ -67,6 +67,9 @@ public class TabelaHash {
         posicoesDistintasDeColisao+=1;
     }
     
+    public void setPosicoesDistintasDeColisao(int x) {
+        posicoesDistintasDeColisao=x;
+    }
     
     
     public void insere(String palavra, Par par){        

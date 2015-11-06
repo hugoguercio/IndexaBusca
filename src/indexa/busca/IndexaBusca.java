@@ -16,9 +16,10 @@ public class IndexaBusca {
     public TabelaHash table;
     public static void main(String[] args) {
         Construtor c = new Construtor();
-        c.readFile();
+        //c.readFile();
         Estatistica e = new Estatistica();
-        //e.captura();
+        TabelaHash t = c.readFile();
+        
         
         
         
