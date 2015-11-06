@@ -21,8 +21,8 @@ public class TabelaHash {
     private int paresInseridos=0;
     private int colisoes = 0;
     private int palavraNova=0;
-    private int posicoesDistintasDeColisao=0;
-    //ta errado o colisoes
+    private int posicoesDistintasDeColisao=1;
+    private int quantidadeDocumentos=0;
 
     
     public TabelaHash(int S) {
@@ -30,8 +30,16 @@ public class TabelaHash {
         this.colisoes = 0;
         this.tabela = new ArrayList[S];
     }
+
+    public int getQuantidadeDocumentos() {
+        return quantidadeDocumentos;
+    }
+
+    public void addDocumentosInseridos() {
+        quantidadeDocumentos++;
+    }
     
-     
+    
     public int getPosicoesUsadas(){
         return this.posicoesUtilizadas;
     }

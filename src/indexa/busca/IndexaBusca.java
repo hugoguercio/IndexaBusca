@@ -1,6 +1,7 @@
 
 package indexa.busca;
 
+import indexa.busca.Estruturas.Documento;
 import indexa.busca.Estruturas.TabelaHash;
 
 /**
@@ -13,6 +14,8 @@ public class IndexaBusca {
      * Main
      * 
      */
+
+    
     public TabelaHash table;
     public static void main(String[] args) {
         Construtor c = new Construtor();
@@ -20,13 +23,15 @@ public class IndexaBusca {
         Estatistica e = new Estatistica();
         TabelaHash t = c.readFile();
         
-        
-        
-        
+//        Documento d = new Documento();
+//        String x = "quem casa quer casa porem ninguem casa ninguem quer casa tambem quer apartamento";
+//        String y = "ninguem em casa todos sairam todos quer entrar quem quem";
+
         
 //        
 //        Documento d = new Documento();
-//         String x = "Quem casa quer casa. Porem ninguem casa. Ninguem quer casa tambem. Quer apartamento.";
+//         String x = "quem casa quer casa porem ninguem casa ninguem quer casa tambem quer apartamento";
+//         String y = "ninguem em casa todos sairam todos quer entrar quem quem";
 //         
 //        String[] p = {"oi", "mundo", "oi", "legal", "mundo", "oi"};
 //        x = d.trataLinha(x);

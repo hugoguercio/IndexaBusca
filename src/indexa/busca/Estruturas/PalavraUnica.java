@@ -30,7 +30,11 @@ public class PalavraUnica{
         this.pares.add(par);
     }
 
+    public ArrayList<Par> getPares() {
+        return pares;
+    }
 
+    
     
     
 }

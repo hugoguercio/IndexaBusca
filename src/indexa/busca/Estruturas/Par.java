@@ -13,6 +13,7 @@ public class Par {
     private int doc_id;
     private int count;
 
+    
     public int getDoc_id() {
         return doc_id;
     }

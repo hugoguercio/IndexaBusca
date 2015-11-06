@@ -42,7 +42,7 @@ public class Construtor {
     */ 
     public TabelaHash readFile (){//File file){
         String currentLine;
-        TabelaHash table = new TabelaHash(500000);
+        TabelaHash table = new TabelaHash(300007);
 
         
         //try (BufferedReader br = new BufferedReader(new FileReader(file))){
@@ -52,11 +52,11 @@ public class Construtor {
 
             int rs = 0;
             String doc;
-            while ((currentLine = br.readLine()) != null) {                
+            while ((currentLine = br.readLine()) != null && rs<500000) {                
                 //Inicializa um documento
                 Documento d = new Documento();
                 //Se existe um documento na posição
-                if(d.identificaDocumento(currentLine) != "id não encontrado"){
+                if(d.identificaDocumento(currentLine) != "id não encontrado"){// && rs<500000){
                     //Atribui os campos do objeto documento a partir da linha lida
                     d = new Documento(d.identificaDocumento(currentLine), d.identificaPalavras(currentLine).length);
                     
@@ -71,6 +71,7 @@ public class Construtor {
                         Par par = new Par(d.getDoc_id(),listaPalavras.get(percorre).getCount());
                         table.insere(listaPalavras.get(percorre).getPalavra(), par);
                     }
+                    table.addDocumentosInseridos();
                 }
                 rs++;
             }

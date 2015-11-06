@@ -95,7 +95,9 @@ public class Documento {
         //Remove os aentos
         linha = Normalizer.normalize(linha, Normalizer.Form.NFD);        
         linha = linha.replaceAll("[^\\p{ASCII}]", "");
+
         
+//Sobrecarrega o GC \/ ?        
         /*
         Remove pontuação, regex P
         Fonte:http://www.regular-expressions.info/unicode.html#prop
@@ -159,6 +161,7 @@ public class Documento {
         return String.format("%1$-" + 20 + "s", s);
     }
     
+    
     /*
         Esse método recebe um ArrayList da contagem de palavras de um doc, assim
     como o id_doc e deve:
@@ -169,4 +172,44 @@ public class Documento {
     */
     
     
+    
+    /*
+    idf ta perdido aqui
+    */
+    public double calculaIdf(int count, int totalDocumentos, int totalDocumentosComPalavra){
+        if(totalDocumentosComPalavra == 0){
+            return 0;
+        }
+        return count * Math.log((double)totalDocumentos / (double)totalDocumentosComPalavra);
+    }
+//    
+//    public void calculaIdfParaTodos(TabelaHash tabela){
+//        //Para todas as posições da tabela
+//        ArrayList<PalavraUnica> listaPalavraUnica;
+//        PalavraUnica pAux;
+//        for (int i = 0; i < tabela.getTabela().length; i++) {
+//            //Se a posição tem palavras
+//            if(tabela.getPosicao(i) != null){
+//                listaPalavraUnica = tabela.getPosicao(i);
+//                pAux = listaPalavraUnica.get(i);
+//                //para cada par
+//                for (int j = 0; j < pAux.getPares().size();j++) {
+//                    //falta atribuir a algum lugar
+//                    calculaIdf(pAux.getPares().get(j).getCount(), tabela.getQuantidadeDocumentos(), pAux.getPares().size());
+//                }
+//            }
+//        }
+//    }
 }
+
+
+
+//ArrayList<PalavraUnica> arr = tabela.getPosicao(posicaoIdentificada);
+//        
+//        for(int i=0 ;i<arr.size();i++){
+//                PalavraUnica pTeste = arr.get(i);
+//                //Achou a lista de pares
+//                if(pTeste.getPalavra().equals(chave)){
+//                    
+//                }
+//            }
