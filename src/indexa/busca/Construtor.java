@@ -52,7 +52,7 @@ public class Construtor {
 
             int rs = 0;
             String doc;
-            while ((currentLine = br.readLine()) != null && rs<500001) {                
+            while ((currentLine = br.readLine()) != null && rs<5001) {                
                 //Inicializa um documento
                 Documento d = new Documento();
                 //Se existe um documento na posição

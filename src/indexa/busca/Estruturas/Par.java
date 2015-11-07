@@ -49,6 +49,7 @@ public class Par implements Comparable<Par> {
 
     @Override
     public int compareTo(Par o) {
-        return  Double.valueOf(this.idf).compareTo(o.getIdf());
+        //Ordenando de forma descendente
+        return  Double.valueOf(o.getIdf()).compareTo(this.idf);  
     }
 }

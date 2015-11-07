@@ -29,25 +29,29 @@ public class Busca {
         posicaoIdentificada = posicaoIdentificada % tabela.getTabela().length; 
         
         ArrayList<PalavraUnica> listaPalavrasNaPosicao = tabela.getPosicao(posicaoIdentificada);
+        if(listaPalavrasNaPosicao == null){
+            System.out.println("Palavra não encontrada em nenhum documento");
+            return;
+        }else{
         Par parAux;
-        for(int i=0 ;i<listaPalavrasNaPosicao.size();i++){
+            for(int i=0 ;i<listaPalavrasNaPosicao.size();i++){
                 PalavraUnica pTeste = listaPalavrasNaPosicao.get(i);
                 //Achou a lista de pares da palavra buscada
- //comment if pra calcuar em todos
                 if(pTeste.getPalavra().equals(chave)){
                     //Para cada par calcula o idf 
-                    System.out.println("Antes de ordenar: "+pTeste.getPares().get(0).getDoc_id());  
                     
-                    
-                    for (int j = 0; j < pTeste.getPares().size();j++) {
+                    ArrayList<Par> listaPares = pTeste.getPares();
+                    for (int j = 0; j < listaPares.size();j++) {
                     //esta calculando o mesmo idf para todos
                         parAux = pTeste.getPares().get(j);
-                        parAux.setIdf(calculaIdf(pTeste.getPares().get(j).getCount(), tabela.getQuantidadeDocumentos(), pTeste.getPares().size()));
+
+                        parAux.setIdf(calculaIdf(listaPares.get(j).getCount(), tabela.getQuantidadeDocumentos(), listaPares.size()));
                     }
-                    Collections.sort(pTeste.getPares());
-                System.out.println("depois de ordenar: "+pTeste.getPares().get(0).getDoc_id());      
+                    Collections.sort(listaPares);
+                    pTeste.setPares(listaPares);
                 }
             }
+        }
     }
     
     public double calculaIdf(int count, int totalDocumentos, int totalDocumentosComPalavra){
