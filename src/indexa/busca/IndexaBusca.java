@@ -24,9 +24,10 @@ public class IndexaBusca {
         
         
         System.out.println("saiu do readfile");
-        TabelaHash t = c.readFile();
-        Busca b = new Busca();
-        b.busca("screenwriter", t);
+        TabelaHash t = c.criaTabela();
+        t.busca("screenwriter");
+        //Busca b = new Busca();
+        //b.busca("screenwriter", t);
         /* teste do idf
         
         Busca b = new Busca();

@@ -13,23 +13,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Construtor {
     private ArrayList<Documento> documentos;
-    
     public void insereDocumento(Documento d){
         if(this.documentos == null){
             this.documentos = new ArrayList<Documento>();
         }
         this.documentos.add(d);
     }
-    
     public Documento getIndex(int i){
         return this.documentos.get(i);
     }
+   
     /*
-    Esse método deve:
+    Esse método deve criar a tabela a partir do arquivo
         -Ler o arquivo
         Chamar:
             -identificaDocumento        (pega id_doc)
@@ -40,7 +38,7 @@ public class Construtor {
             -insereHashTable            (insere um par na tabela de hash)
             
     */ 
-    public TabelaHash readFile (){//File file){
+    public TabelaHash criaTabela (){//File file){
         String currentLine;
         TabelaHash table = new TabelaHash(300007);
 
@@ -96,9 +94,6 @@ public class Construtor {
             if(table.getPosicoesDistintasDeColisao()!=0){
             System.out.println("\nMédia de colisões por posição: " +(table.getColisoes()/table.getPosicoesDistintasDeColisao()));
             }
-            
-            //Busca b = new Busca();
-           // b.busca("oi", table);
             br.close();
             fr.close();
             
