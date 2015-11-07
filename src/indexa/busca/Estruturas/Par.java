@@ -9,9 +9,10 @@ package indexa.busca.Estruturas;
  *
  * @author Qih
  */
-public class Par {
+public class Par implements Comparable<Par> {
     private int doc_id;
     private int count;
+    private double idf;
 
     
     public int getDoc_id() {
@@ -30,8 +31,24 @@ public class Par {
         this.count = count;
     }
 
+    public double getIdf() {
+        return idf;
+    }
+
+    public void setIdf(double idf) {
+        this.idf = idf;
+    }
+    
+    
+
     public Par(int doc_id, int count) {
         this.doc_id = doc_id;
         this.count = count;
+        this.idf = -1;
+    }
+
+    @Override
+    public int compareTo(Par o) {
+        return  Double.valueOf(this.idf).compareTo(o.getIdf());
     }
 }

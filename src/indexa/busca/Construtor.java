@@ -47,12 +47,12 @@ public class Construtor {
         
         //try (BufferedReader br = new BufferedReader(new FileReader(file))){
         try {            
-            FileReader fr = new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl");
+            FileReader fr = new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl");
             BufferedReader br = new BufferedReader(fr);
 
             int rs = 0;
             String doc;
-            while ((currentLine = br.readLine()) != null && rs<6) {                
+            while ((currentLine = br.readLine()) != null && rs<500001) {                
                 //Inicializa um documento
                 Documento d = new Documento();
                 //Se existe um documento na posição
@@ -86,10 +86,10 @@ public class Construtor {
             System.out.println("Terminou de construir a tabela de tamanho: "+table.getTabela().length);
             System.out.println("Quantidade de documentos inseridos: "+this.documentos.size());
             System.out.println("Posicoes usadas: "+table.getPosicoesUsadas());
-            System.out.println("Posicoes usadas em %: "+(table.getPosicoesUsadas()*100/table.getTabela().length)+"%");
+            System.out.println("Posicoes usadas: "+(table.getPosicoesUsadas()*100/table.getTabela().length)+"%");
             
             System.out.println("Palavras únicas: "+ (table.getPosicoesUsadas()+table.getPalavrasNovas()));
-            System.out.println("Quantidade colisões: " + (table.getColisoes()));
+            System.out.println("Quantidade colisões: " + (table.getPalavrasNovas()));
             System.out.println("Posicoes distintas de colisao: " + table.getPosicoesDistintasDeColisao() );
             System.out.println("As colisões foram distribuidas em "+(table.getPosicoesDistintasDeColisao()*100/table.getPosicoesUsadas()) +"% das posições da tabela.");
             

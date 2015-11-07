@@ -1,8 +1,10 @@
 
 package indexa.busca;
 
-import indexa.busca.Estruturas.Documento;
+import indexa.busca.Estruturas.Par;
 import indexa.busca.Estruturas.TabelaHash;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -20,8 +22,32 @@ public class IndexaBusca {
     public static void main(String[] args) {
         Construtor c = new Construtor();
         //c.readFile();
-        Estatistica e = new Estatistica();
-        TabelaHash t = c.readFile();
+        //Estatistica e = new Estatistica();
+        //TabelaHash t = c.readFile();
+        /* teste do idf
+        
+        Busca b = new Busca();
+        Par p1 = new Par(1, 3);
+        Par p2 = new Par(2,1);
+        p1.setIdf(b.calculaIdf(3, 2, 2));
+        p2.setIdf(b.calculaIdf(1, 2, 2));
+        System.out.println("IDF da palavra p1: "+p1.getIdf());
+        System.out.println("IDF da palavra p2: "+p2.getIdf());
+        
+        ArrayList<Par> arr = new ArrayList();
+        arr.add(p1);
+        arr.add(p2);
+        System.out.println("\n prin antes de ordenar");
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i).getDoc_id());
+        }
+        Collections.sort(arr);
+        
+        System.out.println("\n prin depos de ordenar");
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i).getDoc_id());
+        }
+        */
         
 //        Documento d = new Documento();
 //        String x = "quem casa quer casa porem ninguem casa ninguem quer casa tambem quer apartamento";
