@@ -34,6 +34,11 @@ public class PalavraUnica{
         return pares;
     }
 
+    public void setPares(ArrayList<Par> pares) {
+        this.pares = pares;
+    }
+
+    
     
     
     

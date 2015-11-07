@@ -96,7 +96,9 @@ public class Construtor {
             if(table.getPosicoesDistintasDeColisao()!=0){
             System.out.println("\nMédia de colisões por posição: " +(table.getColisoes()/table.getPosicoesDistintasDeColisao()));
             }
-
+            
+            //Busca b = new Busca();
+           // b.busca("oi", table);
             br.close();
             fr.close();
             

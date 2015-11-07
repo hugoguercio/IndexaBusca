@@ -21,9 +21,12 @@ public class IndexaBusca {
     public TabelaHash table;
     public static void main(String[] args) {
         Construtor c = new Construtor();
-        //c.readFile();
-        //Estatistica e = new Estatistica();
-        //TabelaHash t = c.readFile();
+        
+        
+        System.out.println("saiu do readfile");
+        TabelaHash t = c.readFile();
+        Busca b = new Busca();
+        b.busca("down", t);
         /* teste do idf
         
         Busca b = new Busca();

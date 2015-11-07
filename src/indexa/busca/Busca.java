@@ -33,14 +33,19 @@ public class Busca {
         for(int i=0 ;i<listaPalavrasNaPosicao.size();i++){
                 PalavraUnica pTeste = listaPalavrasNaPosicao.get(i);
                 //Achou a lista de pares da palavra buscada
+ //comment if pra calcuar em todos
                 if(pTeste.getPalavra().equals(chave)){
                     //Para cada par calcula o idf 
-                    for (int j = 0; j < pTeste.getPares().size();j++) {
+                    System.out.println("Antes de ordenar: "+pTeste.getPares().get(0).getDoc_id());  
                     
+                    
+                    for (int j = 0; j < pTeste.getPares().size();j++) {
+                    //esta calculando o mesmo idf para todos
                         parAux = pTeste.getPares().get(j);
                         parAux.setIdf(calculaIdf(pTeste.getPares().get(j).getCount(), tabela.getQuantidadeDocumentos(), pTeste.getPares().size()));
                     }
                     Collections.sort(pTeste.getPares());
+                System.out.println("depois de ordenar: "+pTeste.getPares().get(0).getDoc_id());      
                 }
             }
     }
