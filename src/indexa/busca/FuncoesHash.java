@@ -46,4 +46,9 @@ public class FuncoesHash {
 
     return(Math.abs(sum) % S);
    }
+    
+    
+    
+    
+    
 }

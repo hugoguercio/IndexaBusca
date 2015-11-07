@@ -16,6 +16,6 @@ public class SDBM implements InterfaceHash{
         for (int c : str.toCharArray()) {
             hash = c + (hash << 6) + (hash << 16) - hash;
         }
-        return hash%tamanhoTabela;
+        return Math.abs(hash%tamanhoTabela);
     }
 }

@@ -67,6 +67,6 @@ public class Murmur implements InterfaceHash{
     }
     
     public int hash(String palavra, int tamanhoTabela){
-        return hash32(palavra)%tamanhoTabela;
+        return Math.abs(hash32(palavra)%tamanhoTabela);
     }
 }

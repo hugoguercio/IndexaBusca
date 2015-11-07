@@ -6,6 +6,9 @@
 package indexa.busca.Estruturas;
 
 
+
+import FuncoesHash.FuncaoHashFactory;
+import FuncoesHash.InterfaceHash;
 import indexa.busca.FuncoesHash;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -87,18 +90,19 @@ public class TabelaHash {
     /*
         Esse método insere um Par associado a uma palavra na tabela.        
     */
-    public void insere(String palavra, Par par){
+    public void insere(String palavra, Par par){        
+        FuncaoHashFactory.Funcao tipo = FuncaoHashFactory.Funcao.FUNCAOHASHJAVA;
+        InterfaceHash funcaoHash = FuncaoHashFactory.criaHash(tipo);
+        int posicaoIdentificada = funcaoHash.hash(palavra, this.tabela.length);
         
+        //Identifica a posição
+//        FuncoesHash funcoes = new FuncoesHash();
+//        int posicaoIdentificada = funcoes.hash1(palavra,this.tabela.length);
+//        if(posicaoIdentificada <0){
+//            posicaoIdentificada = -posicaoIdentificada;            
+//        }
+//        posicaoIdentificada = posicaoIdentificada % this.tabela.length;
 
-
-//Identifica a posição
-        FuncoesHash funcoes = new FuncoesHash();
-        int posicaoIdentificada = funcoes.hash1(palavra,this.tabela.length);
-        if(posicaoIdentificada <0){
-            posicaoIdentificada = -posicaoIdentificada;            
-        }
-        posicaoIdentificada = posicaoIdentificada % this.tabela.length;
-        
         
         PalavraUnica pAux = new PalavraUnica(palavra, par);
         //Primeira palavra na posição
@@ -133,12 +137,15 @@ public class TabelaHash {
     */
     public void busca(String chave){
         //Identifica a posição
-        FuncoesHash funcoes = new FuncoesHash();
-        int posicaoIdentificada = funcoes.hash1(chave,tabela.length);
-        if(posicaoIdentificada <0){
-            posicaoIdentificada = -posicaoIdentificada;            
-        }
-        posicaoIdentificada = posicaoIdentificada % tabela.length; 
+        FuncaoHashFactory.Funcao tipo = FuncaoHashFactory.Funcao.FUNCAOHASHJAVA;
+        InterfaceHash funcaoHash = FuncaoHashFactory.criaHash(tipo);
+        int posicaoIdentificada = funcaoHash.hash(chave, this.tabela.length);
+//        FuncoesHash funcoes = new FuncoesHash();
+//        int posicaoIdentificada = funcoes.hash1(chave,tabela.length);
+//        if(posicaoIdentificada <0){
+//            posicaoIdentificada = -posicaoIdentificada;            
+//        }
+//        posicaoIdentificada = posicaoIdentificada % tabela.length; 
         
         ArrayList<PalavraUnica> listaPalavrasNaPosicao = this.getPosicao(posicaoIdentificada);        
         if(listaPalavrasNaPosicao == null){
@@ -188,5 +195,7 @@ public class TabelaHash {
         posicaoIdentificada = posicaoIdentificada % tabela.length; 
         return posicaoIdentificada;
     }
+    
+    
 }
 

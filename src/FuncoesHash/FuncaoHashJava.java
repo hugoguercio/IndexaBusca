@@ -11,6 +11,6 @@ package FuncoesHash;
  */
 public class FuncaoHashJava implements InterfaceHash{
     public int hash(String palavra, int tamanhoTabela){
-        return palavra.hashCode()%tamanhoTabela;
+        return Math.abs(palavra.hashCode()%tamanhoTabela);
     }
 }

@@ -20,6 +20,6 @@ public class FNV implements InterfaceHash{
             rv ^= chave.charAt(i);
             rv *= FNV_32_PRIME;
         }
-        return rv%tamanhoTabela;
+        return Math.abs(rv%tamanhoTabela);
     }
 }
