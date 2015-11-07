@@ -88,7 +88,10 @@ public class TabelaHash {
         Esse método insere um Par associado a uma palavra na tabela.        
     */
     public void insere(String palavra, Par par){
-        //Identifica a posição
+        
+
+
+//Identifica a posição
         FuncoesHash funcoes = new FuncoesHash();
         int posicaoIdentificada = funcoes.hash1(palavra,this.tabela.length);
         if(posicaoIdentificada <0){

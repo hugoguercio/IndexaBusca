@@ -9,7 +9,7 @@ package FuncoesHash;
  *
  * @author Qih
  */
-public class CRC32 {
+public class CRC32 implements InterfaceHash{
     private int crc = 0;
 
     /** The fast CRC table. Computed once when the CRC32 class is loaded. */
