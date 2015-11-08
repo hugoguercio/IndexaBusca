@@ -12,7 +12,7 @@ package FuncoesHash;
 public class SDBM implements InterfaceHash{
     
     public int hash(String str, int tamanhoTabela) {
-        int hash = 0;
+        int hash = 65599;
         for (int c : str.toCharArray()) {
             hash = c + (hash << 6) + (hash << 16) - hash;
         }

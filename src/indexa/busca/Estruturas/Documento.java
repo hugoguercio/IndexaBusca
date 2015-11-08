@@ -168,54 +168,8 @@ public class Documento {
     }
     
     
-    /*
-        Esse método recebe um ArrayList da contagem de palavras de um doc, assim
-    como o id_doc e deve:
-    -chamar ajustatamanhopalavra
-    -chamar a funlção de hash para achar a posição
-    -verificar se a palavra está contida na lista da posição da tabela hash
-    -inserir <id_doc,count> na lista de palavras    
-    */
-    
-    
-    
-    /*
-    idf ta perdido aqui
-    */
-    public double calculaIdf(int count, int totalDocumentos, int totalDocumentosComPalavra){
-        if(totalDocumentosComPalavra == 0){
-            return 0;
-        }
-        return count * Math.log((double)totalDocumentos / (double)totalDocumentosComPalavra);
-    }
-//    
-//    public void calculaIdfParaTodos(TabelaHash tabela){
-//        //Para todas as posições da tabela
-//        ArrayList<PalavraUnica> listaPalavraUnica;
-//        PalavraUnica pAux;
-//        for (int i = 0; i < tabela.getTabela().length; i++) {
-//            //Se a posição tem palavras
-//            if(tabela.getPosicao(i) != null){
-//                listaPalavraUnica = tabela.getPosicao(i);
-//                pAux = listaPalavraUnica.get(i);
-//                //para cada par
-//                for (int j = 0; j < pAux.getPares().size();j++) {
-//                    //falta atribuir a algum lugar
-//                    calculaIdf(pAux.getPares().get(j).getCount(), tabela.getQuantidadeDocumentos(), pAux.getPares().size());
-//                }
-//            }
-//        }
-//    }
+
+
 }
 
 
-
-//ArrayList<PalavraUnica> arr = tabela.getPosicao(posicaoIdentificada);
-//        
-//        for(int i=0 ;i<arr.size();i++){
-//                PalavraUnica pTeste = arr.get(i);
-//                //Achou a lista de pares
-//                if(pTeste.getPalavra().equals(chave)){
-//                    
-//                }
-//            }

@@ -61,7 +61,7 @@ public class Construtor {
                 //Inicializa um documento
                 Documento d = new Documento();
                 //Se existe um documento na posição
-                if(d.identificaDocumento(currentLine) != "id não encontrado"){// && rs<500000){
+                if(d.identificaDocumento(currentLine) != "id não encontrado"){
                     //Atribui os campos do objeto documento a partir da linha lida
                     d = new Documento(d.identificaDocumento(currentLine), d.identificaPalavras(currentLine).length);
                     
@@ -80,13 +80,15 @@ public class Construtor {
                         
                     }
                     table.addDocumentosInseridos();
+                    
+                    if((qtdDocumentos % 100000) == 0){
+                        System.gc();
+                    }
                 }
                 rs++;
             }
             
-            Estatistica estatistica = new Estatistica();
-            table.setPosicoesDistintasDeColisao(estatistica.getArrayTamanhoBaldes(table).size());
-            
+            table.setPosicoesDistintasDeColisao(table.getArrayTamanhoBaldes().size());
             /*
                 Prints
             */
