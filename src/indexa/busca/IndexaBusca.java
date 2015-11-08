@@ -1,10 +1,9 @@
 
 package indexa.busca;
 
-import indexa.busca.Estruturas.Par;
 import indexa.busca.Estruturas.TabelaHash;
-import java.util.ArrayList;
-import java.util.Collections;
+import indexa.busca.GUI.FrameInicio;
+import javax.swing.JFrame;
 
 /**
  *
@@ -20,12 +19,13 @@ public class IndexaBusca {
     
     public TabelaHash table;
     public static void main(String[] args) {
-        Construtor c = new Construtor();
+        //Construtor c = new Construtor();
+        FrameInicio frame = new FrameInicio();
+        frame.setVisible(true);
         
         
-        System.out.println("saiu do readfile");
-        TabelaHash t = c.criaTabela();
-        t.busca("screenwriter");
+        //TabelaHash t = c.criaTabela();
+        //t.busca("screenwriter");
         //Busca b = new Busca();
         //b.busca("screenwriter", t);
         /* teste do idf

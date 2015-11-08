@@ -18,7 +18,6 @@ import java.util.Collections;
  * @author Qih
  */
 public class TabelaHash {
-    //TEM QUE MUDAR ESSE VALOR, QUAL SERIA O VALOR DE S ?!
     private ArrayList<PalavraUnica>[] tabela;    
     
     private int posicoesUtilizadas = 0;
@@ -27,6 +26,7 @@ public class TabelaHash {
     private int palavraNova=0;
     private int posicoesDistintasDeColisao=1;
     private int quantidadeDocumentos=0;
+    private ArrayList<Documento> documentos;
     
     
     /*
@@ -82,6 +82,20 @@ public class TabelaHash {
     public void addDocumentosInseridos() {
         quantidadeDocumentos++;
     }
+    public void insereDocumento(Documento d){
+        if(this.documentos == null){
+            this.documentos = new ArrayList<Documento>();
+        }
+        this.documentos.add(d);
+    }
+    public Documento getIndex(int i){
+        return this.documentos.get(i);
+    }
+
+    public ArrayList<Documento> getDocumentos() {
+        return documentos;
+    }
+    
     
     /*
         Métodos
@@ -91,7 +105,7 @@ public class TabelaHash {
         Esse método insere um Par associado a uma palavra na tabela.        
     */
     public void insere(String palavra, Par par){        
-        FuncaoHashFactory.Funcao tipo = FuncaoHashFactory.Funcao.FUNCAOHASHJAVA;
+        FuncaoHashFactory.Funcao tipo = FuncaoHashFactory.Funcao.FNV;
         InterfaceHash funcaoHash = FuncaoHashFactory.criaHash(tipo);
         int posicaoIdentificada = funcaoHash.hash(palavra, this.tabela.length);
         
@@ -135,22 +149,17 @@ public class TabelaHash {
     /*
         Esse método deve retornar uma lista de pares ordenados pelo idf do par
     */
-    public void busca(String chave){
+    public ArrayList<Par> busca(String chave){
         //Identifica a posição
-        FuncaoHashFactory.Funcao tipo = FuncaoHashFactory.Funcao.FUNCAOHASHJAVA;
+        FuncaoHashFactory.Funcao tipo = FuncaoHashFactory.Funcao.FNV;
         InterfaceHash funcaoHash = FuncaoHashFactory.criaHash(tipo);
         int posicaoIdentificada = funcaoHash.hash(chave, this.tabela.length);
-//        FuncoesHash funcoes = new FuncoesHash();
-//        int posicaoIdentificada = funcoes.hash1(chave,tabela.length);
-//        if(posicaoIdentificada <0){
-//            posicaoIdentificada = -posicaoIdentificada;            
-//        }
-//        posicaoIdentificada = posicaoIdentificada % tabela.length; 
-        
-        ArrayList<PalavraUnica> listaPalavrasNaPosicao = this.getPosicao(posicaoIdentificada);        
+ 
+        ArrayList<PalavraUnica> listaPalavrasNaPosicao = this.getPosicao(posicaoIdentificada);      
+        ArrayList<Par> listaPares=null;
         if(listaPalavrasNaPosicao == null){
             System.out.println("Palavra não encontrada em nenhum documento!");
-            return;
+            return listaPares;
         }else{
             Par parAux;
             for(int i=0 ;i<listaPalavrasNaPosicao.size();i++){
@@ -158,7 +167,7 @@ public class TabelaHash {
                 //Achou a lista de pares da palavra buscada
                 if(pTeste.getPalavra().equals(chave)){
                     //Para cada par calcula o idf                     
-                    ArrayList<Par> listaPares = pTeste.getPares();
+                    listaPares = pTeste.getPares();
                     for (int j = 0; j < listaPares.size();j++) {
                     //esta calculando o mesmo idf para todos
                         parAux = pTeste.getPares().get(j);
@@ -169,6 +178,7 @@ public class TabelaHash {
                     System.out.println("print de teste do doc_id da busca: "+listaPares.get(0).getDoc_id());
                 }
             }
+            return listaPares;
         }
     }
     

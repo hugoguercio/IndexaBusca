@@ -52,6 +52,11 @@ public class Documento {
     public int getDoc_id() {
         return doc_id;
     }
+
+    public String getUrl() {
+        return url;
+    }
+    
     
     /*
         Métodos

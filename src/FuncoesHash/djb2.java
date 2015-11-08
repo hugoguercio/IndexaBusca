@@ -14,7 +14,7 @@ package FuncoesHash;
 public class djb2 implements InterfaceHash{
     public int hash(String chave, int tamanhoTabela) {
         long hash = doHash(chave);
-        return (int) Math.abs(hash) % tamanhoTabela;
+        return (int) Math.abs(hash % tamanhoTabela);
     }
 
     @Override

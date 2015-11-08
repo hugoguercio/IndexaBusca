@@ -83,7 +83,7 @@ public class CRC32 implements InterfaceHash{
     public int hash(String chave, int tamanhoTabela){
         this.update(chave.getBytes());
         long hash = this.getValue();
-        return (int) Math.abs(hash) % tamanhoTabela;
+        return (int) Math.abs(hash % tamanhoTabela);
         
     }
 }

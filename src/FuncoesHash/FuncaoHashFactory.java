@@ -13,7 +13,7 @@ public class FuncaoHashFactory {
 
     public enum Funcao {
 
-        MURMUR,DJB2,SDBM,FNV,CRC32,FUNCAOHASHJAVA
+        MURMUR,DJB2,SDBM,FNV,CRC32,FUNCAOHASHJAVA,HASHSOMA,HASHSOMAPOSICIONAL
     }
 
     public static InterfaceHash criaHash(Funcao funcao) {
@@ -31,6 +31,10 @@ public class FuncaoHashFactory {
                 return new CRC32();     
             case FUNCAOHASHJAVA:
                 return new FuncaoHashJava();    
+            case HASHSOMA:
+                return new HashSoma();  
+            case HASHSOMAPOSICIONAL:
+                return new HashSomaPosicional();  
         }
 
         return null;
