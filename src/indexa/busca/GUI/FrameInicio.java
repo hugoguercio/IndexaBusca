@@ -128,6 +128,7 @@ public class FrameInicio extends javax.swing.JFrame {
 
         jLabel1.setText("Digite o termo de busca:");
 
+        chaveBuscaField.setEditable(false);
         chaveBuscaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chaveBuscaFieldActionPerformed(evt);
@@ -325,8 +326,9 @@ public class FrameInicio extends javax.swing.JFrame {
                 btnBuscar.setEnabled(true);
                 btnCarregar.setEnabled(false);
                 btnCarregar.setText("Arquivo Carregado");
-                
-                
+                chaveBuscaField.setEditable(true);
+                qtdDocumentosField.setEditable(false);
+                tamanhoTabelaField.setEditable(false);
             } else {
             
             }

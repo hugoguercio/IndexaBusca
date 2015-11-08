@@ -175,7 +175,7 @@ public class TabelaHash {
                     }
                     Collections.sort(listaPares);
                     pTeste.setPares(listaPares);
-                    System.out.println("print de teste do doc_id da busca: "+listaPares.get(0).getDoc_id());
+                 //   System.out.println("print de teste do doc_id da busca: "+listaPares.get(0).getDoc_id());
                 }
             }
             return listaPares;

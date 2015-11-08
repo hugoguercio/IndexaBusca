@@ -93,15 +93,15 @@ public class Construtor {
             System.out.println("Tamanho da tabela                 : "+table.getTabela().length);
             System.out.println("Documentos inseridos              : "+table.getDocumentos().size());
             System.out.println("Posicoes usadas                   : "+table.getPosicoesUsadas());
-            System.out.println("Posicoes usadas                   : "+(table.getPosicoesUsadas()*100/table.getTabela().length)+"%");
+            System.out.println("Percentagem de posicoes usadas    : "+(table.getPosicoesUsadas()*100/table.getTabela().length)+"%");
             
             System.out.println("Palavras únicas                   : "+ (table.getPosicoesUsadas()+table.getPalavrasNovas()));
             System.out.println("Quantidade colisões               : " + (table.getPalavrasNovas()));
             System.out.println("Posicoes distintas de colisao     : " + table.getPosicoesDistintasDeColisao() );
-            System.out.println("As colisões foram distribuidas em : "+(table.getPosicoesDistintasDeColisao()*100/table.getPosicoesUsadas()) +"% das posições usadas da tabela.");
+            System.out.println("Distribuição de colisões          : "+(table.getPosicoesDistintasDeColisao()*100/table.getPosicoesUsadas()) +"%");
             
             if(table.getPosicoesDistintasDeColisao()!=0){
-            System.out.println("\nMédia de colisões por posição   : " +(table.getColisoes()/table.getPosicoesDistintasDeColisao()));
+            System.out.println("Média de colisões por posição   : " +(table.getColisoes()/table.getPosicoesDistintasDeColisao()));
             }
             br.close();
             //fr.close();
