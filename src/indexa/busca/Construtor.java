@@ -16,16 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Construtor {
-    private ArrayList<Documento> documentos;
-    public void insereDocumento(Documento d){
-        if(this.documentos == null){
-            this.documentos = new ArrayList<Documento>();
-        }
-        this.documentos.add(d);
-    }
-    public Documento getIndex(int i){
-        return this.documentos.get(i);
-    }
+
    
     /*
     Esse método deve criar a tabela a partir do arquivo
@@ -109,7 +100,7 @@ public class Construtor {
             //fr.close();
             
         } catch (IOException e) {
-            System.out.println("deu erro no documento: "+this.documentos.size());
+            System.out.println("deu erro no documento: "+table.getDocumentos().size());
             e.printStackTrace();
         }
         return table;
