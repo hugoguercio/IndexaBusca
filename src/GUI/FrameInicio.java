@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package indexa.busca.GUI;
+package GUI;
 
 import indexa.busca.Construtor;
-import indexa.busca.Estruturas.Documento;
-import indexa.busca.Estruturas.Par;
-import indexa.busca.Estruturas.TabelaHash;
+import EstruturasHashTable.Documento;
+import EstruturasHashTable.Par;
+import EstruturasHashTable.TabelaHash;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;

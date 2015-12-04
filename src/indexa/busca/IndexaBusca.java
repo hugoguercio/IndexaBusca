@@ -1,8 +1,8 @@
 
 package indexa.busca;
 
-import indexa.busca.Estruturas.TabelaHash;
-import indexa.busca.GUI.FrameInicio;
+import EstruturasHashTable.TabelaHash;
+import java.io.File;
 
 /**
  *
@@ -18,8 +18,13 @@ public class IndexaBusca {
     
     public TabelaHash table;
     public static void main(String[] args) {
-        FrameInicio frame = new FrameInicio();
-        frame.setVisible(true);
+        //FrameInicio frame = new FrameInicio();
+        //frame.setVisible(true);
+        
+        Construtor c = new Construtor();
+        //c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\teste.ttl"));
+        c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+        
         
  /**       
         //TabelaHash t = c.criaTabela();
