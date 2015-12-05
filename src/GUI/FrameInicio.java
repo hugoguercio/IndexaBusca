@@ -389,7 +389,7 @@ public class FrameInicio extends javax.swing.JFrame {
                 qtdDocumentosField.setEditable(false);
                 tamanhoTabelaField.setEditable(false);
                 checkIgnorar.setEnabled(false);
-                jComboBox1.setEditable(false);
+                jComboBox1.setEnabled(false);
                 c.memoria();
     
             } else {
@@ -406,29 +406,54 @@ public class FrameInicio extends javax.swing.JFrame {
         String chave = chaveBuscaField.getText();
         Documento d = new Documento();
         chave = d.trataLinha(chave);
-        ArrayList<Par> listPares = tabela.busca(chave);
-        if(listPares==null){
-            showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
-            return;
+        //Busca na tabela hash
+        if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){  
+            ArrayList<Par> listPares = tabela.busca(chave);
+            if(listPares==null){
+                showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
+                return;
+            }
+            Par pAux;
+            int docId;
+            String docUrl;
+
+            DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+            model.setRowCount(0);
+            int j=1;
+            for (int i = 0; i < listPares.size(); i++) {
+                pAux = listPares.get(i);
+                docId = pAux.getDoc_id();
+                docUrl =  "http://dbpedia.org/resource/"+tabela.getIndex(docId).getUrl();
+
+                Object[] ob = {(j),docUrl};
+                model.addRow(ob);
+                j++;
+            }
         }
-        Par pAux;
-        int docId;
-        String docUrl;
-         
-        DefaultTableModel model = (DefaultTableModel) jTable.getModel();
-        model.setRowCount(0);
-        int j=1;
-        for (int i = 0; i < listPares.size(); i++) {
-            pAux = listPares.get(i);
-            docId = pAux.getDoc_id();
-            docUrl =  "http://dbpedia.org/resource/"+tabela.getIndex(docId).getUrl();
-            
-            Object[] ob = {(j),docUrl};
-            model.addRow(ob);
-            j++;
+        //ENTAO VAMOS BUSCAR NA TRIE
+        else{
+                   ArrayList<Par> listPares = trie.busca(chave);
+            if(listPares==null){
+                showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
+                return;
+            }
+            Par pAux;
+            int docId;
+            String docUrl;
+
+            DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+            model.setRowCount(0);
+            int j=1;
+            for (int i = 0; i < listPares.size(); i++) {
+                pAux = listPares.get(i);
+                docId = pAux.getDoc_id();
+                docUrl =  "http://dbpedia.org/resource/"+trie.getIndex(docId).getUrl();
+
+                Object[] ob = {(j),docUrl};
+                model.addRow(ob);
+                j++;
+            }
         }
-        
-        
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 

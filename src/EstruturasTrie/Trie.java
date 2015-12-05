@@ -6,8 +6,10 @@
 package EstruturasTrie;
 
 import EstruturasHashTable.Documento;
+import EstruturasHashTable.PalavraUnica;
 import EstruturasHashTable.Par;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -146,35 +148,75 @@ public class Trie {
         Método de busca
     */
     
-    public NoTernario busca(String palavra){
+    public NoTernario buscar(String palavra){
         //Palavra vazia ou null
         if (palavra == null || palavra.isEmpty()){
             return new NoTernario();
             
         }
-        return busca(palavra, 0, raiz);
+        return buscar(palavra, 0, raiz);
         
         
     }
 
-    private NoTernario busca(String word, int index, NoTernario node)  {
+    private NoTernario buscar(String word, int index, NoTernario node)  {
         if (node == null){
             return raiz;
         }
         char ch = word.charAt(index);
         if (ch < node.letra){
-            return busca(word, index, node.esquerda);
+            return buscar(word, index, node.esquerda);
         }
         if (ch > node.letra){
-            return busca(word, index, node.direita);
+            return buscar(word, index, node.direita);
         }
         if (index < word.length() - 1){
-            return busca(word, index + 1, node.meio);
+            return buscar(word, index + 1, node.meio);
         }
         return node;
     }
 
+    /*
+        Calcula o Wij
+    */
+    public double calculaPeso(int count, int totalDocumentos, int totalDocumentosComPalavra){
+        if(totalDocumentosComPalavra == 0){
+            return 0;
+        }
+        double d= count * ((Math.log((double)totalDocumentos)/ Math.log(2))/ (double)totalDocumentosComPalavra);
+        return d;
+    }
     
+    public ArrayList<Par> busca(String chave){
+        ArrayList<Par> listaPares=null;
+        listaPares = this.buscar("latina").getListaDocumentosComPalavra().getPares();
+
+        if(this.contido(chave)){
+            //System.out.println("Palavra não encontrada em nenhum documento!");
+            return listaPares;
+        }else{
+            Par parAux;
+            PalavraUnica pTeste = null;
+            pTeste = this.buscar(chave).getListaDocumentosComPalavra();
+                    //Para cada par calcula o idf                     
+                    listaPares = pTeste.getPares();
+                    for (int j = 0; j < listaPares.size();j++) {
+                    //esta calculando o mesmo idf para todos
+                        parAux = pTeste.getPares().get(j);
+                        parAux.setIdf(calculaPeso(listaPares.get(j).getCount(), this.getDocumentos().size(), listaPares.size()));
+                    }
+                    Collections.sort(listaPares);
+                    pTeste.setPares(listaPares);
+                 //   System.out.println("print de teste do doc_id da busca: "+listaPares.get(0).getDoc_id());
+
+            return listaPares;
+        }
+    }  
+      
+      
+      
+      
+      
     
     // Returns if there is any word in the trie
     // that starts with the given prefix.
