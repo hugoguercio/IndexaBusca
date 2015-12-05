@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Qih/Documents/NetBeansProjects/IndexaBusca/src/indexa/busca/Estruturas/Documento.java</file>
             <file>file:/C:/Users/Qih/Documents/NetBeansProjects/IndexaBusca/src/indexa/busca/Construtor.java</file>
-            <file>file:/C:/Users/Qih/Documents/NetBeansProjects/IndexaBusca/src/indexa/busca/Estruturas/TabelaHash.java</file>
+            <file>file:/C:/Users/Qih/Documents/NetBeansProjects/IndexaBusca/src/indexa/busca/IndexaBusca.java</file>
+            <file>file:/C:/Users/Qih/Documents/NetBeansProjects/IndexaBusca/src/EstruturasTrie/Trie.java</file>
         </group>
     </open-files>
 </project-private>

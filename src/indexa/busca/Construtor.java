@@ -177,6 +177,10 @@ public class Construtor {
                 
             }
 
+            /*
+            Prints
+            
+            
             System.out.println("\nTemos "+palavrasUnicas.size() +"palavras únicas.\n");
             Collections.sort(palavrasUnicas, new compara());
             int qtdusadas=0;
@@ -188,16 +192,69 @@ public class Construtor {
             
             //System.out.println("Palavra mais frenquente: " +palavrasUnicas.get(0).getPalavra()+ " com: "+palavrasUnicas.get(0).getCount()+" ocorrencias.");
             //System.out.println("Segunda Palavra mais frenquente:" +palavrasUnicas.get(1).getPalavra()+ " com: "+palavrasUnicas.get(1).getCount()+" ocorrencias.");
+            
+            */
         }catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
-        
-        
-        
-        
         return qtdDocumentos-2;//desconsidera a primeira e ultima linha
     }
+    
+    
+    public Trie criaTrie(File file, int qtdDocumentos){
+        long startTime = System.nanoTime();        
+        Trie trie = new Trie();
+        if(qtdDocumentos == 0){
+            qtdDocumentos=Integer.MAX_VALUE;
+        }
+        int rs = 0;        
+        try (BufferedReader br = new BufferedReader(new FileReader(file))){
+            String doc,currentLine;
+            
+            while ((currentLine = br.readLine()) != null && rs<qtdDocumentos) {                
+                //Inicializa um documento
+                Documento d = new Documento();
+                //Se existe um documento na posição
+                
+                if(d.identificaDocumento(currentLine) != "id não encontrado"){
+                    //Atribui os campos do objeto documento a partir da linha lida
+                    d = new Documento(d.identificaDocumento(currentLine), d.identificaPalavras(currentLine).length);
+                    
+                    //Captura o texto do documento e faz o tratamento
+                    doc = d.stringDocumento(currentLine);                
+                    doc = d.trataLinha(doc);                
+                    ArrayList<Palavra> listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
+                    d.setPalavrasDistintas(listaPalavras.size());
+                    //this.insereDocumento(d);
+                    trie.insereDocumento(d);
+                    
+                    //Para cada palavra, cria o par <doc_id,count> e insere na tabela de hash
+                    for (int percorre = 0; percorre<listaPalavras.size();percorre++){
+                        //System.out.println(listaPalavras.get(percorre).getPalavra());
+                        Par par = new Par(d.getDoc_id(),listaPalavras.get(percorre).getCount());
+                        //trie.insere(listaPalavras.get(percorre).getPalavra(), par);
+                        
+                    }
+                }
+                rs++;
+            }
+            
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime); 
+            double seconds = (double)duration / 1000000000.0;
+            /*
+                Prints
+            */
+
+            System.out.println("Tempo de execução: "+seconds+"segundos");
+            br.close();
+            
+        } catch (IOException e) {
+            System.out.println("deu erro no documento: "+trie.getDocumentos().size());
+            e.printStackTrace();
+        }
+        return trie;
+    }    
+    
 
 }
