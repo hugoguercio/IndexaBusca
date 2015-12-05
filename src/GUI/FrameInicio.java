@@ -432,7 +432,8 @@ public class FrameInicio extends javax.swing.JFrame {
         }
         //ENTAO VAMOS BUSCAR NA TRIE
         else{
-                   ArrayList<Par> listPares = trie.busca(chave);
+            
+            ArrayList<Par> listPares = trie.busca(chave);
             if(listPares==null){
                 showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
                 return;
@@ -444,7 +445,7 @@ public class FrameInicio extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) jTable.getModel();
             model.setRowCount(0);
             int j=1;
-            for (int i = 0; i < listPares.size(); i++) {
+            for (int i = 1; i < listPares.size(); i++) {
                 pAux = listPares.get(i);
                 docId = pAux.getDoc_id();
                 docUrl =  "http://dbpedia.org/resource/"+trie.getIndex(docId).getUrl();

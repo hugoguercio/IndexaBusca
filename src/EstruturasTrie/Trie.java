@@ -189,7 +189,15 @@ public class Trie {
     
     public ArrayList<Par> busca(String chave){
         ArrayList<Par> listaPares=null;
-        listaPares = this.buscar("latina").getListaDocumentosComPalavra().getPares();
+        if(this.contido(chave)==false){
+            System.out.println("SAPORRA NAO EXISTE");
+            return listaPares;            
+        }
+        else{
+            listaPares = this.buscar(chave).getListaDocumentosComPalavra().getPares();
+            
+            
+        }
 
         if(this.contido(chave)){
             //System.out.println("Palavra não encontrada em nenhum documento!");

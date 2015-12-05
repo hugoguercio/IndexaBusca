@@ -260,14 +260,16 @@ public class Construtor {
             /*
                 Prints
             */
+            
 
-            System.out.println("Tempo de execução: "+seconds+"segundos");
+            System.out.println("\nTempo de criação da trie: "+seconds+" segundos");
             br.close();
             
         } catch (IOException e) {
             System.out.println("deu erro no documento: "+trie.getDocumentos().size());
             e.printStackTrace();
         }
+        
         return trie;
     }    
     
