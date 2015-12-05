@@ -9,6 +9,7 @@ import indexa.busca.Construtor;
 import EstruturasHashTable.Documento;
 import EstruturasHashTable.Par;
 import EstruturasHashTable.TabelaHash;
+import EstruturasTrie.Trie;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -21,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrameInicio extends javax.swing.JFrame {
     TabelaHash tabela;
+    Trie trie;
     /**
      * Creates new form FrameInicio
      */
@@ -48,6 +50,8 @@ public class FrameInicio extends javax.swing.JFrame {
         qtdDocumentosField = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         tamanhoTabelaField = new javax.swing.JFormattedTextField();
+        jComboBox1 = new javax.swing.JComboBox();
+        checkIgnorar = new javax.swing.JCheckBox();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -73,7 +77,7 @@ public class FrameInicio extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Criação da tabela");
+        jLabel3.setText("Criação da Estrutura");
 
         jLabel5.setText("Quantidade de documentos a serem lidos:");
 
@@ -89,6 +93,29 @@ public class FrameInicio extends javax.swing.JFrame {
 
         tamanhoTabelaField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         tamanhoTabelaField.setText("0");
+        if(jComboBox1.getSelectedIndex()==0){
+            tamanhoTabelaField.setEnabled(false);
+        }
+        tamanhoTabelaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tamanhoTabelaFieldActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tabela Hash", "Trie" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        checkIgnorar.setLabel("Ignorar palavras mais frequentes");
+        checkIgnorar.setOpaque(false);
+        checkIgnorar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkIgnorarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -97,15 +124,22 @@ public class FrameInicio extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(tamanhoTabelaField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCarregar))
-                    .addComponent(qtdDocumentosField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tamanhoTabelaField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(qtdDocumentosField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCarregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkIgnorar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,10 +148,14 @@ public class FrameInicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(qtdDocumentosField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(qtdDocumentosField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(checkIgnorar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCarregar)
                     .addComponent(tamanhoTabelaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,7 +288,7 @@ public class FrameInicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -300,8 +338,10 @@ public class FrameInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_chaveBuscaFieldActionPerformed
 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
+      
         int returnVal = fc.showOpenDialog(FrameInicio.this);
-
+            ArrayList<String> palavrasIgnorar = new ArrayList<String>();
+            
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 //Pega o arquivo
                 File file = fc.getSelectedFile();
@@ -322,13 +362,36 @@ public class FrameInicio extends javax.swing.JFrame {
                 if(qtdDocumentos != 0){
                     qtdDocumentos++;
                 }
-                this.tabela = c.criaTabela(file,qtdDocumentos,tamanhoTabela);
+                if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){                    
+                    if(checkIgnorar.isSelected()==false){                        
+                        palavrasIgnorar.add(" ");      
+                    }else{
+                        Object[] o = c.contaEignora(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+                        palavrasIgnorar = (ArrayList<String>) o[1];
+                    }
+                    
+                   this.tabela = c.criaTabela(file,qtdDocumentos,tamanhoTabela,palavrasIgnorar);
+                   
+                }
+                else{
+                    if(checkIgnorar.isSelected()==false){                        
+                        palavrasIgnorar.add(" ");      
+                    }else{
+                        Object[] o = c.contaEignora(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+                        palavrasIgnorar = (ArrayList<String>) o[1];
+                    }
+                   this.trie = c.criaTrie(file, qtdDocumentos, palavrasIgnorar);
+                }
                 btnBuscar.setEnabled(true);
                 btnCarregar.setEnabled(false);
                 btnCarregar.setText("Arquivo Carregado");
                 chaveBuscaField.setEditable(true);
                 qtdDocumentosField.setEditable(false);
                 tamanhoTabelaField.setEditable(false);
+                checkIgnorar.setEnabled(false);
+                jComboBox1.setEditable(false);
+                c.memoria();
+    
             } else {
             
             }
@@ -368,6 +431,26 @@ public class FrameInicio extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        String selecionado = (String)jComboBox1.getSelectedItem();
+        if(selecionado == "Trie"){
+            jLabel6.setVisible(false);
+            tamanhoTabelaField.setVisible(false);
+        }else{
+            jLabel6.setVisible(true);
+            tamanhoTabelaField.setVisible(true);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void tamanhoTabelaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanhoTabelaFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tamanhoTabelaFieldActionPerformed
+
+    private void checkIgnorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkIgnorarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkIgnorarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,6 +493,8 @@ public class FrameInicio extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCarregar;
     private javax.swing.JTextField chaveBuscaField;
+    private javax.swing.JCheckBox checkIgnorar;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

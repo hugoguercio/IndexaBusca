@@ -1,11 +1,8 @@
 
 package indexa.busca;
 
-import EstruturasHashTable.Par;
 import EstruturasHashTable.TabelaHash;
-import EstruturasTrie.Trie;
-import java.io.File;
-import java.util.ArrayList;
+import GUI.FrameInicio;
 
 /**
  *
@@ -21,20 +18,32 @@ public class IndexaBusca {
     
     public TabelaHash table;
     public static void main(String[] args) {
-        //FrameInicio frame = new FrameInicio();
-        //frame.setVisible(true);
+        FrameInicio frame = new FrameInicio();
+        frame.setVisible(true);
         
+        
+        /*
         Construtor c = new Construtor();
-        c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
-        Trie t= c.criaTrie(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"), c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl")));
+        //c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+        int qtd;
+        ArrayList<String> palavrasParaIgnorar;
+        Object[] o = c.contaEignora(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+        qtd = (Integer) o[0];
+        System.out.println("qtd documentos q ta passando no construtor: "+qtd);
+        palavrasParaIgnorar = (ArrayList<String>) o[1];
+        
+        Trie t= c.criaTrie(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"), qtd, palavrasParaIgnorar);
         System.out.println(t.contido("latina"));
         ArrayList<Par> arrP = t.busca("latina").getListaDocumentosComPalavra().getPares();
         for(int i=0; i<arrP.size();i++){
-            System.out.println(arrP.get(i).getDoc_id());
+//            System.out.println(arrP.get(i).getDoc_id());
         }
         
+        c.memoria();
         
-
+        */
+        
+        
        //c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
         
 //        Documento d = new Documento();
