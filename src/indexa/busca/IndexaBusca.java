@@ -1,8 +1,8 @@
 
 package indexa.busca;
 
+import EstruturasHashTable.Documento;
 import EstruturasHashTable.TabelaHash;
-import java.io.File;
 
 /**
  *
@@ -21,9 +21,25 @@ public class IndexaBusca {
         //FrameInicio frame = new FrameInicio();
         //frame.setVisible(true);
         
-        Construtor c = new Construtor();
+       // Construtor c = new Construtor();
         //c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\teste.ttl"));
-        c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+       //c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+        
+        Documento d = new Documento();
+        String a = "abcdefghijklmnopqrstu";
+        String b = "abcdefghijklmnopqrst";
+        String c = "abcdefghijk";
+        
+        System.out.println(d.ajustaTamanhoPalavra(a)+"<");
+        System.out.println(d.ajustaTamanhoPalavra(b)+"<");
+        System.out.println(d.ajustaTamanhoPalavra(c)+"<");
+        
+        
+        
+        
+        
+        
+        
         
         
  /**       

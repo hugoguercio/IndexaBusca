@@ -106,7 +106,6 @@ public class Construtor {
             }
             System.out.println("Tempo de execução: "+seconds+"segundos");
             br.close();
-            //fr.close();
             
         } catch (IOException e) {
             System.out.println("deu erro no documento: "+table.getDocumentos().size());
@@ -115,76 +114,7 @@ public class Construtor {
         return table;
     }
     
-    public Trie criaTrie(File file, int qtdDocumentos){
-        long startTime = System.nanoTime();
-        int rs = 0;
-        String currentLine;
-        if(qtdDocumentos == 0){
-            qtdDocumentos=Integer.MAX_VALUE;
-        }
-        
-        Trie trie = new Trie();
-              
-        try (BufferedReader br = new BufferedReader(new FileReader(file))){
-        //try {            
-            //FileReader fr = new FileReader("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_en.ttl");
-            //BufferedReader br = new BufferedReader(fr);                    
-            String doc;
-            while ((currentLine = br.readLine()) != null && rs<qtdDocumentos) {                
-                //Inicializa um documento
-                Documento d = new Documento();
-                //Se existe um documento na posição
-                if(d.identificaDocumento(currentLine) != "id não encontrado"){
-                    //Atribui os campos do objeto documento a partir da linha lida
-                    d = new Documento(d.identificaDocumento(currentLine), d.identificaPalavras(currentLine).length);
-                    
-                    //Captura o texto do documento e faz o tratamento
-                    doc = d.stringDocumento(currentLine);                
-                    doc = d.trataLinha(doc);                
-                    ArrayList<Palavra> listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
-                    d.setPalavrasDistintas(listaPalavras.size());
-                    
-                    trie.insereDocumento(d);                    
-                    
-                    //Para cada palavra, cria o par <doc_id,count> e insere na tabela de hash
-                    for (int percorre = 0; percorre<listaPalavras.size();percorre++){
-                        //System.out.println(listaPalavras.get(percorre).getPalavra());
-                        Par par = new Par(d.getDoc_id(),listaPalavras.get(percorre).getCount());
-                        //table.insere(listaPalavras.get(percorre).getPalavra(), par);
-                        
-                    }
-                   // table.addDocumentosInseridos();
-                    
-                    if((qtdDocumentos % 100000) == 0){
-                        System.gc();
-                    }
-                }
-                rs++;
-            }
-            
-            
-            long endTime = System.nanoTime();
-            long duration = (endTime - startTime); 
-            double seconds = (double)duration / 1000000000.0;
-            /*
-                Prints
-            */
-       
-                        
-            System.out.println("Tempo de execução: "+seconds+"segundos");
-            br.close();
-            //fr.close();
-            
-        } catch (IOException e) {
-            //System.out.println("deu erro no documento: "+table.getoDcumentos().size());
-            e.printStackTrace();
-        }
-        
-        
-        return trie;
-    }
-    
-    
+   
     /*
         Conta a quantidade de documentos em um arquivo.
     
