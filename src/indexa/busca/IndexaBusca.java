@@ -1,10 +1,11 @@
 
 package indexa.busca;
 
-import EstruturasHashTable.Documento;
+import EstruturasHashTable.Par;
 import EstruturasHashTable.TabelaHash;
 import EstruturasTrie.Trie;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,9 +25,14 @@ public class IndexaBusca {
         //frame.setVisible(true);
         
         Construtor c = new Construtor();
-        //c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\teste.ttl"));
-//        Trie t= c.criaTrie(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\teste.ttl"), c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\teste.ttl")));
-//        t.imprimeTrie();
+        c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+        Trie t= c.criaTrie(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"), c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl")));
+        System.out.println(t.contido("latina"));
+        ArrayList<Par> arrP = t.busca("latina").getListaDocumentosComPalavra().getPares();
+        for(int i=0; i<arrP.size();i++){
+            System.out.println(arrP.get(i).getDoc_id());
+        }
+        
         
 
        //c.qtdDocumentos(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));

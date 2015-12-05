@@ -6,6 +6,7 @@
 package EstruturasTrie;
 
 import EstruturasHashTable.PalavraUnica;
+import EstruturasHashTable.Par;
 
 /**
  *
@@ -20,9 +21,28 @@ public class NoTernario {
         Construtores    
     */
     public NoTernario() {
+        
     }
-
+    
+   
+    
     public NoTernario(char val) {
         this.letra = val;
+    }
+
+    public PalavraUnica getListaDocumentosComPalavra() {
+        return listaDocumentosComPalavra;
+    }
+
+    public void setListaDocumentosComPalavra(PalavraUnica listaDocumentosComPalavra) {
+        this.listaDocumentosComPalavra = listaDocumentosComPalavra;
+    }
+    
+    public void inserePar(String palavra,Par par){
+        this.listaDocumentosComPalavra.inserePar(par);
+    }
+    
+    public void inserePrimeiroPar(String Palavra, Par par){
+        listaDocumentosComPalavra = new PalavraUnica(Palavra, par);
     }
 }

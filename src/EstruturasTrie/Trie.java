@@ -6,6 +6,7 @@
 package EstruturasTrie;
 
 import EstruturasHashTable.Documento;
+import EstruturasHashTable.Par;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +14,15 @@ import java.util.ArrayList;
  * @author Qih
  */
 public class Trie {
+    /*
+        Atributos
+    */
     private NoTernario raiz;
     private ArrayList<Documento> documentos;
     
+    /*
+        Getters e Setters
+    */
     public void insereDocumento(Documento d){
         if(this.documentos == null){
             this.documentos = new ArrayList<Documento>();
@@ -29,12 +36,20 @@ public class Trie {
         return documentos;
     }
     
-    
+    /*
+        Construtor
+    */
     public Trie() {
         raiz = new NoTernario();
     }
 
-    //Insere uma palavra
+    /*
+        Métodos
+    */
+    
+    /*
+        Métodos de inserção
+    */
     public void insere(String palavra) {
         if (palavra != null && !palavra.isEmpty()){
             //chama o insere passando a raiz
@@ -64,6 +79,43 @@ public class Trie {
         return no;
     }
     
+    public void insereComPar(String palavra, Par par) {
+        if (palavra != null && !palavra.isEmpty()){
+            //chama o insere passando a raiz
+            insereComPar(palavra, 0, raiz, par);
+        }
+    }
+    
+    private NoTernario insereComPar(String palavra, int posicao, NoTernario no, Par par) {
+        char ch = palavra.charAt(posicao);
+        //Nó não existe
+        if (no == null){
+            no = new NoTernario(ch);
+        }
+        
+        if (ch < no.letra){
+            no.esquerda = insereComPar(palavra, posicao, no.esquerda, par);
+        }
+        else if (ch > no.letra){
+            no.direita = insereComPar(palavra, posicao, no.direita, par);
+        }
+        else if (posicao < palavra.length() - 1){
+            no.meio = insereComPar(palavra, posicao + 1, no.meio, par);
+        }
+        else{
+            if(no.folha == false){
+                no.inserePrimeiroPar(palavra, par);
+            }
+            
+            no.folha = true;
+            no.inserePar(palavra, par);
+        }
+        return no;
+    }
+    
+    /*
+        Método de contido
+    */
     public boolean contido(String palavra) {
         //Palavra vazia ou null
         if (palavra == null || palavra.isEmpty()){
@@ -88,6 +140,38 @@ public class Trie {
             return contido(word, index + 1, node.meio);
         }
         return node.folha;
+    }
+
+    /*
+        Método de busca
+    */
+    
+    public NoTernario busca(String palavra){
+        //Palavra vazia ou null
+        if (palavra == null || palavra.isEmpty()){
+            return new NoTernario();
+            
+        }
+        return busca(palavra, 0, raiz);
+        
+        
+    }
+
+    private NoTernario busca(String word, int index, NoTernario node)  {
+        if (node == null){
+            return raiz;
+        }
+        char ch = word.charAt(index);
+        if (ch < node.letra){
+            return busca(word, index, node.esquerda);
+        }
+        if (ch > node.letra){
+            return busca(word, index, node.direita);
+        }
+        if (index < word.length() - 1){
+            return busca(word, index + 1, node.meio);
+        }
+        return node;
     }
 
     

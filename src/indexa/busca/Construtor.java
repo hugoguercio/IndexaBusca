@@ -225,14 +225,13 @@ public class Construtor {
                     doc = d.trataLinha(doc);                
                     ArrayList<Palavra> listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
                     d.setPalavrasDistintas(listaPalavras.size());
-                    //this.insereDocumento(d);
                     trie.insereDocumento(d);
                     
-                    //Para cada palavra, cria o par <doc_id,count> e insere na tabela de hash
+                    //Para cada palavra, cria o par <doc_id,count> e insere na trie
                     for (int percorre = 0; percorre<listaPalavras.size();percorre++){
-                        //System.out.println(listaPalavras.get(percorre).getPalavra());
+                        //System.out.println("palavra "+listaPalavras.get(percorre).getPalavra()+" idDoc "+d.getUrl());
                         Par par = new Par(d.getDoc_id(),listaPalavras.get(percorre).getCount());
-                        //trie.insere(listaPalavras.get(percorre).getPalavra(), par);
+                        trie.insereComPar(listaPalavras.get(percorre).getPalavra(), par);
                         
                     }
                 }

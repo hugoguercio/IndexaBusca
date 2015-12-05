@@ -27,6 +27,7 @@ public class PalavraUnica{
     }
     
     public void inserePar(Par par){
+
         this.pares.add(par);
     }
 
