@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.TreeSet;
+import java.util.Random;
 
 public class Construtor {
 
@@ -283,6 +283,15 @@ public class Construtor {
         System.out.println("Memória livre:"
             + runtime.freeMemory() / mb);         
         
+    }
+    
+    public static int randInt(int min, int max) {
+
+        Random rand = new Random();
+
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
     }
 
 }

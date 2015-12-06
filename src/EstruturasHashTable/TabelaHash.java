@@ -12,6 +12,7 @@ import indexa.busca.Documento;
 import indexa.busca.PalavraUnica;
 import FuncoesHash.FuncaoHashFactory;
 import FuncoesHash.InterfaceHash;
+import indexa.busca.Construtor;
 import indexa.busca.DocumentoRelevante;
 import indexa.busca.Palavra;
 //import indexa.busca.FuncoesHash;
@@ -228,12 +229,17 @@ public class TabelaHash {
         for(int i =0;i<chave.length;i++){
             listaParAux = this.busca(chave[i]);
             //Adiciona todos os pares na lista unificada
-            for(int k=0; k<listaParAux.size();k++){
-                listaParesUnificados.add(listaParAux.get(k));
+            if(listaParAux!=null){
+                for(int k=0; k<listaParAux.size();k++){
+                    listaParesUnificados.add(listaParAux.get(k));
+                }
             }
         }        
         
-        Collections.sort(listaParesUnificados);
+        Collections.sort(listaParesUnificados);        
+        if(listaParesUnificados.size()==0){
+            return listaParesUnificados;
+        }
         idfTotal=listaParesUnificados.get(0).getIdf();
         for(int l=1;l<listaParesUnificados.size();l++){
             if(listaParesUnificados.get(l-1).getDoc_id()==listaParesUnificados.get(l).getDoc_id()){
@@ -268,6 +274,23 @@ public class TabelaHash {
         InterfaceHash funcaoHash = FuncaoHashFactory.criaHash(tipo);
         int posicaoIdentificada = funcaoHash.hash(chave, this.tabela.length);
         return posicaoIdentificada;
+    }
+    
+    public void getPalavrasAleatorias(){
+        Construtor c = new Construtor();
+        int aleatorio=0;
+        for(int i=0;i<100;i++){
+            aleatorio = c.randInt(1, 300000);
+            if(tabela[aleatorio]==null){
+                //diminui pq nao achou, senao nao temos 100 palavras no final.
+                i--;
+            }else{
+                
+                String palavraAleatoria = tabela[aleatorio].get(0).getPalavra();
+                System.out.println(palavraAleatoria);
+            }
+        }
+        
     }
     
     

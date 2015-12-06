@@ -29,6 +29,7 @@ public class FrameInicio extends javax.swing.JFrame {
      */
     public FrameInicio() {
         initComponents();
+        btnBuscaMulti.setVisible(false);
     }
 
     /**
@@ -58,6 +59,7 @@ public class FrameInicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         chaveBuscaField = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        btnBuscaMulti = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -136,7 +138,7 @@ public class FrameInicio extends javax.swing.JFrame {
                             .addComponent(tamanhoTabelaField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(qtdDocumentosField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCarregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -183,6 +185,13 @@ public class FrameInicio extends javax.swing.JFrame {
             }
         });
 
+        btnBuscaMulti.setText("jButton1");
+        btnBuscaMulti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscaMultiActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,15 +206,21 @@ public class FrameInicio extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chaveBuscaField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar))
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chaveBuscaField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar)))
+                        .addContainerGap(12, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnBuscaMulti)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(57, 57, 57))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +232,9 @@ public class FrameInicio extends javax.swing.JFrame {
                     .addComponent(chaveBuscaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscaMulti)
+                    .addComponent(jButton1))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -415,6 +432,7 @@ public class FrameInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_qtdDocumentosFieldActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        long startTime = System.nanoTime();
         String chave = chaveBuscaField.getText();
         Documento d = new Documento();
         chave = d.trataLinha(chave);
@@ -471,10 +489,61 @@ public class FrameInicio extends javax.swing.JFrame {
                 }
             }
         }else{//Temos 2 ou mais chaves de busca
-            
+            chave = chaveBuscaField.getText();
+            d = new Documento();
+            chavesMultiplas = d.identificaPalavras(chave);
+            //Busca na tabela hash
+            if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){  
+                ArrayList<Par> listPares = tabela.buscaMultiplas(chavesMultiplas);
+                if(listPares==null || listPares.size()==0){
+                    showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
+                    return;
+                }
+                Par pAux;
+                int docId;
+                String docUrl;
+
+                DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+                model.setRowCount(0);
+                int j=1;
+                for (int i = 0; i < listPares.size(); i++) {
+                    pAux = listPares.get(i);
+                    docId = pAux.getDoc_id();
+                    docUrl =  "http://dbpedia.org/resource/"+tabela.getIndex(docId).getUrl();
+
+                    Object[] ob = {(j),docUrl};
+                    model.addRow(ob);
+                    j++;
+                }
+            }else{
+                ArrayList<Par> listPares = trie.buscaMultiplas(chavesMultiplas);
+                if(listPares==null || listPares.size()==0){
+                    showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
+                    return;
+                }
+                Par pAux;
+                int docId;
+                String docUrl;
+
+                DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+                model.setRowCount(0);
+                int j=1;
+                for (int i = 0; i < listPares.size(); i++) {
+                    pAux = listPares.get(i);
+                    docId = pAux.getDoc_id();
+                    docUrl =  "http://dbpedia.org/resource/"+trie.getIndex(docId).getUrl();
+
+                    Object[] ob = {(j),docUrl};
+                    model.addRow(ob);
+                    j++;
+                }
+            }
         }
         
-        
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime); 
+        double seconds = (double)duration / 1000000000.0;
+        System.out.println("Tempo gasto para consulta: "+seconds+"segundos");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -497,7 +566,7 @@ public class FrameInicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkIgnorarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscaMultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaMultiActionPerformed
         // TODO add your handling code here:
         String chave = chaveBuscaField.getText();
         Documento d = new Documento();
@@ -548,6 +617,11 @@ public class FrameInicio extends javax.swing.JFrame {
                 j++;
             }
         }
+    }//GEN-LAST:event_btnBuscaMultiActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        tabela.getPalavrasAleatorias();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -588,6 +662,7 @@ public class FrameInicio extends javax.swing.JFrame {
     JFileChooser fc = new JFileChooser();
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscaMulti;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCarregar;
     private javax.swing.JTextField chaveBuscaField;

@@ -56,7 +56,7 @@ public class Par implements Comparable<Par> {
     public int compareTo(Par o) {
         //Ordenando de forma descendente
         //return  Double.valueOf(o.getIdf()).compareTo(this.idf);  
-        return o.getDoc_id()-this.doc_id;
+        return this.doc_id-o.getDoc_id();
     }
     
     

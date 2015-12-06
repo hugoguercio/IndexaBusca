@@ -241,12 +241,17 @@ public class Trie {
         for(int i =0;i<chave.length;i++){
             listaParAux = this.busca(chave[i]);
             //Adiciona todos os pares na lista unificada
-            for(int k=0; k<listaParAux.size();k++){
-                listaParesUnificados.add(listaParAux.get(k));
+            if(listaParAux!=null){
+                for(int k=0; k<listaParAux.size();k++){
+                    listaParesUnificados.add(listaParAux.get(k));
+                }
             }
         }        
         
         Collections.sort(listaParesUnificados);
+        if(listaParesUnificados.size()==0){
+            return listaParesUnificados;
+        }
         idfTotal=listaParesUnificados.get(0).getIdf();
         for(int l=1;l<listaParesUnificados.size();l++){
             if(listaParesUnificados.get(l-1).getDoc_id()==listaParesUnificados.get(l).getDoc_id()){
