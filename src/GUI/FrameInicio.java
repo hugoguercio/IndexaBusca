@@ -506,7 +506,8 @@ public class FrameInicio extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) jTable.getModel();
                 model.setRowCount(0);
                 int j=1;
-                for (int i = 0; i < listPares.size(); i++) {
+                //for (int i = 0; i < listPares.size(); i++) {
+                for (int i = listPares.size()-1; i >= 0; i--) {
                     pAux = listPares.get(i);
                     docId = pAux.getDoc_id();
                     docUrl =  "http://dbpedia.org/resource/"+tabela.getIndex(docId).getUrl();
@@ -528,7 +529,8 @@ public class FrameInicio extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) jTable.getModel();
                 model.setRowCount(0);
                 int j=1;
-                for (int i = 0; i < listPares.size(); i++) {
+                //for (int i = 0; i < listPares.size(); i++) {
+                for (int i = listPares.size()-1; i >= 0; i--) {
                     pAux = listPares.get(i);
                     docId = pAux.getDoc_id();
                     docUrl =  "http://dbpedia.org/resource/"+trie.getIndex(docId).getUrl();
