@@ -110,6 +110,9 @@ public class Documento {
         */
         linha = linha.replaceAll("\\p{P}", "");        
         
+        //só az 09
+        linha = linha.replaceAll("[^a-zA-Z0-9 ]", "");
+
         return linha;
     }
     

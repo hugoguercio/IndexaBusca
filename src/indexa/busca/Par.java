@@ -46,10 +46,19 @@ public class Par implements Comparable<Par> {
         this.count = count;
         this.idf = -1;
     }
+    
+    public Par(int doc_id, double idf){
+        this.doc_id = doc_id;
+        this.idf = idf;
+    }
 
     @Override
     public int compareTo(Par o) {
         //Ordenando de forma descendente
-        return  Double.valueOf(o.getIdf()).compareTo(this.idf);  
+        //return  Double.valueOf(o.getIdf()).compareTo(this.idf);  
+        return o.getDoc_id()-this.doc_id;
     }
+    
+    
+    
 }

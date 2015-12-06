@@ -6,7 +6,7 @@
 package EstruturasTrie;
 
 import indexa.busca.Documento;
-import indexa.busca.PalavraUnica;
+import indexa.busca.PalavraUnicaTrie;
 import indexa.busca.Par;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +37,17 @@ public class Trie {
     public ArrayList<Documento> getDocumentos() {
         return documentos;
     }
+    
+    public int getContagemPalavraUnicaDoDoc(int doc_id){
+        for (int i=0; i<documentos.size();i++){
+            if(doc_id== documentos.get(i).getDoc_id()){
+                return documentos.get(i).getPalavrasDistintas();
+            }
+        }        
+        
+        return 0; 
+   }
+    
     
     /*
         Construtor
@@ -203,7 +214,8 @@ public class Trie {
             return listaPares;
         }else{
             Par parAux;
-            PalavraUnica pTeste = null;
+            //PalavraUnica pTeste = null;
+            PalavraUnicaTrie pTeste = null;
             pTeste = this.buscar(chave).getListaDocumentosComPalavra();
                     //Para cada par calcula o idf                     
                     listaPares = pTeste.getPares();
@@ -219,7 +231,46 @@ public class Trie {
             return listaPares;
         }
     }  
-
+    
+    public ArrayList<Par> buscaMultiplas(String[] chave){        
+        ArrayList<Par> listaParesUnificados = new ArrayList<Par>();
+        ArrayList<Par> listaParAux =new ArrayList<Par>();
+        ArrayList<Par> listaParUnificadoSemDuplicados =new ArrayList<Par>();
+        double idfTotal=0;
+        //Para cada palavra pega o TF
+        for(int i =0;i<chave.length;i++){
+            listaParAux = this.busca(chave[i]);
+            //Adiciona todos os pares na lista unificada
+            for(int k=0; k<listaParAux.size();k++){
+                listaParesUnificados.add(listaParAux.get(k));
+            }
+        }        
+        
+        Collections.sort(listaParesUnificados);
+        idfTotal=listaParesUnificados.get(0).getIdf();
+        for(int l=1;l<listaParesUnificados.size();l++){
+            if(listaParesUnificados.get(l-1).getDoc_id()==listaParesUnificados.get(l).getDoc_id()){
+                idfTotal += listaParesUnificados.get(l).getIdf(); 
+           }else{
+                //insere na lista o par com valor de tfidf
+                listaParUnificadoSemDuplicados.add(new Par(listaParesUnificados.get(l-1).getDoc_id(), ((1/this.getContagemPalavraUnicaDoDoc(listaParesUnificados.get(l-1).getDoc_id()))*idfTotal)));
+            }
+            
+            //trata o ultimo elemento
+            if((l+1)==listaParesUnificados.size() ){
+                //é diferente
+                if(listaParesUnificados.get(l-1).getDoc_id()!=listaParesUnificados.get(l).getDoc_id()){
+                    listaParUnificadoSemDuplicados.add(new Par(listaParesUnificados.get(l).getDoc_id(), ((1/this.getContagemPalavraUnicaDoDoc(listaParesUnificados.get(l).getDoc_id()))*listaParesUnificados.get(l).getIdf())));
+                }else{
+                    listaParUnificadoSemDuplicados.add(new Par(listaParesUnificados.get(l-1).getDoc_id(), ((1/this.getContagemPalavraUnicaDoDoc(listaParesUnificados.get(l-1).getDoc_id()))*idfTotal)));
+                }
+                
+            }
+        }
+        
+        Collections.sort(listaParUnificadoSemDuplicados);
+        return listaParUnificadoSemDuplicados;
+    }
     
     // Returns if there is any word in the trie
     // that starts with the given prefix.

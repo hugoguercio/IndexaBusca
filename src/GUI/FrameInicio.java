@@ -10,6 +10,7 @@ import indexa.busca.Documento;
 import indexa.busca.Par;
 import EstruturasHashTable.TabelaHash;
 import EstruturasTrie.Trie;
+import indexa.busca.DocumentoRelevante;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -57,6 +58,7 @@ public class FrameInicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         chaveBuscaField = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -181,6 +183,13 @@ public class FrameInicio extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -194,7 +203,8 @@ public class FrameInicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chaveBuscaField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)))
+                        .addComponent(btnBuscar))
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -206,6 +216,8 @@ public class FrameInicio extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(chaveBuscaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -485,6 +497,59 @@ public class FrameInicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkIgnorarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String chave = chaveBuscaField.getText();
+        Documento d = new Documento();
+        String[] chavesMultiplas = d.identificaPalavras(chave);
+        //Busca na tabela hash
+        if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){  
+            ArrayList<Par> listPares = tabela.buscaMultiplas(chavesMultiplas);
+            if(listPares==null){
+                showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
+                return;
+            }
+            Par pAux;
+            int docId;
+            String docUrl;
+
+            DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+            model.setRowCount(0);
+            int j=1;
+            for (int i = 0; i < listPares.size(); i++) {
+                pAux = listPares.get(i);
+                docId = pAux.getDoc_id();
+                docUrl =  "http://dbpedia.org/resource/"+tabela.getIndex(docId).getUrl();
+
+                Object[] ob = {(j),docUrl};
+                model.addRow(ob);
+                j++;
+            }
+        }else{
+            ArrayList<Par> listPares = trie.buscaMultiplas(chavesMultiplas);
+            if(listPares==null){
+                showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
+                return;
+            }
+            Par pAux;
+            int docId;
+            String docUrl;
+
+            DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+            model.setRowCount(0);
+            int j=1;
+            for (int i = 0; i < listPares.size(); i++) {
+                pAux = listPares.get(i);
+                docId = pAux.getDoc_id();
+                docUrl =  "http://dbpedia.org/resource/"+trie.getIndex(docId).getUrl();
+
+                Object[] ob = {(j),docUrl};
+                model.addRow(ob);
+                j++;
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -527,6 +592,7 @@ public class FrameInicio extends javax.swing.JFrame {
     private javax.swing.JButton btnCarregar;
     private javax.swing.JTextField chaveBuscaField;
     private javax.swing.JCheckBox checkIgnorar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -6,6 +6,7 @@
 package EstruturasTrie;
 
 import indexa.busca.PalavraUnica;
+import indexa.busca.PalavraUnicaTrie;
 import indexa.busca.Par;
 
 /**
@@ -16,7 +17,8 @@ public class NoTernario {
     char letra;
     NoTernario esquerda,meio, direita;
     boolean folha;
-    PalavraUnica listaDocumentosComPalavra;
+    //PalavraUnica listaDocumentosComPalavra;
+    PalavraUnicaTrie listaDocumentosComPalavra;
     /*
         Construtores    
     */
@@ -30,11 +32,12 @@ public class NoTernario {
         this.letra = val;
     }
 
-    public PalavraUnica getListaDocumentosComPalavra() {
+    //public PalavraUnica getListaDocumentosComPalavra() {
+    public PalavraUnicaTrie getListaDocumentosComPalavra() {
         return listaDocumentosComPalavra;
     }
-
-    public void setListaDocumentosComPalavra(PalavraUnica listaDocumentosComPalavra) {
+    //public void setListaDocumentosComPalavra(PalavraUnica listaDocumentosComPalavra) {
+    public void setListaDocumentosComPalavra(PalavraUnicaTrie listaDocumentosComPalavra) {
         this.listaDocumentosComPalavra = listaDocumentosComPalavra;
     }
     
@@ -43,6 +46,7 @@ public class NoTernario {
     }
     
     public void inserePrimeiroPar(String Palavra, Par par){
-        listaDocumentosComPalavra = new PalavraUnica(Palavra, par);
+        //listaDocumentosComPalavra = new PalavraUnica(Palavra, par);
+        listaDocumentosComPalavra = new PalavraUnicaTrie(par);
     }
 }

@@ -121,7 +121,7 @@ public class Construtor {
     */
     public Object[] contaEignora(File file){
         //Variaveis para contagem de tempo
-        System.out.println("comecou");
+        //System.out.println("comecou");
         long startTime = System.nanoTime();
         double duracaoContaPalavrasSegundos=0;
         
@@ -149,7 +149,7 @@ public class Construtor {
             long endTimeContaPalavras = System.nanoTime();
             long duracaoContaPalavras = (endTimeContaPalavras - startTime); 
             duracaoContaPalavrasSegundos = (double)duracaoContaPalavras / 1000000000.0;
-            System.out.println("Temos "+ todasPalavras.size() +" palavras em "+qtdDocumentos+" documentos.");
+            //System.out.println("Temos "+ todasPalavras.size() +" palavras em "+qtdDocumentos+" documentos.");
             System.out.println("Tempo gasto na contagem de palavras: "+duracaoContaPalavrasSegundos+"segundos");
             
             //Ordena as palavras
@@ -181,7 +181,7 @@ public class Construtor {
             
             
             
-            System.out.println("\nTemos "+palavrasUnicas.size() +" palavras únicas.");
+            //System.out.println("\nTemos "+palavrasUnicas.size() +" palavras únicas.");
             Collections.sort(palavrasUnicas, new compara());
             
             int qtdusadas=0;
