@@ -225,6 +225,12 @@ public class FrameInicio extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(btn100p)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscaEN)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscaPT))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -233,17 +239,9 @@ public class FrameInicio extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chaveBuscaField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar)))
-                        .addGap(0, 1, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(btnBuscaMulti)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn100p)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscaPT))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBuscaEN)))
+                                .addComponent(btnBuscar))
+                            .addComponent(btnBuscaMulti))
+                        .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -255,13 +253,14 @@ public class FrameInicio extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(chaveBuscaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscaMulti)
-                    .addComponent(btnBuscaPT)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscaPT)
+                        .addComponent(btnBuscaEN))
                     .addComponent(btn100p))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscaEN)
+                .addComponent(btnBuscaMulti)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -466,6 +465,7 @@ public class FrameInicio extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         long startTime = System.nanoTime();
+        long endTime;
         String chave = chaveBuscaField.getText();
         Documento d = new Documento();
         chave = d.trataLinha(chave);
@@ -482,7 +482,7 @@ public class FrameInicio extends javax.swing.JFrame {
                 Par pAux;
                 int docId;
                 String docUrl;
-
+                endTime = System.nanoTime();
                 DefaultTableModel model = (DefaultTableModel) jTable.getModel();
                 model.setRowCount(0);
                 int j=1;
@@ -507,7 +507,7 @@ public class FrameInicio extends javax.swing.JFrame {
                 Par pAux;
                 int docId;
                 String docUrl;
-
+                endTime = System.nanoTime();
                 DefaultTableModel model = (DefaultTableModel) jTable.getModel();
                 model.setRowCount(0);
                 int j=1;
@@ -535,7 +535,7 @@ public class FrameInicio extends javax.swing.JFrame {
                 Par pAux;
                 int docId;
                 String docUrl;
-
+                endTime = System.nanoTime();
                 DefaultTableModel model = (DefaultTableModel) jTable.getModel();
                 model.setRowCount(0);
                 int j=1;
@@ -544,7 +544,6 @@ public class FrameInicio extends javax.swing.JFrame {
                     pAux = listPares.get(i);
                     docId = pAux.getDoc_id();
                     docUrl =  "http://dbpedia.org/resource/"+tabela.getIndex(docId).getUrl();
-
                     Object[] ob = {(j),docUrl};
                     model.addRow(ob);
                     j++;
@@ -558,7 +557,7 @@ public class FrameInicio extends javax.swing.JFrame {
                 Par pAux;
                 int docId;
                 String docUrl;
-
+                endTime = System.nanoTime();
                 DefaultTableModel model = (DefaultTableModel) jTable.getModel();
                 model.setRowCount(0);
                 int j=1;
@@ -575,10 +574,10 @@ public class FrameInicio extends javax.swing.JFrame {
             }
         }
         
-        long endTime = System.nanoTime();
+        
         long duration = (endTime - startTime); 
-        double seconds = (double)duration / 1000000000.0;
-        System.out.println("Tempo gasto para consulta: "+seconds+"segundos");
+        double seconds = (double)duration / 1000000.0;
+        System.out.println("Tempo gasto para consulta: "+seconds+" millisegundos");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -656,7 +655,12 @@ public class FrameInicio extends javax.swing.JFrame {
 
     private void btnBuscaPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaPTActionPerformed
         // TODO add your handling code here:
-        tabela.fazBuscas(tabela.PTumaChave, tabela.PTduasChaves, tabela.PTtresChaves);
+        if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){  
+            tabela.fazBuscas(tabela.PTumaChave, tabela.PTduasChaves, tabela.PTtresChaves);
+        }else{
+            trie.fazBuscas(trie.PTumaChave, trie.PTduasChaves, trie.PTtresChaves);
+        }
+        
     }//GEN-LAST:event_btnBuscaPTActionPerformed
 
     private void btn100pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn100pActionPerformed
@@ -666,7 +670,11 @@ public class FrameInicio extends javax.swing.JFrame {
 
     private void btnBuscaENActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaENActionPerformed
         // TODO add your handling code here:
-        tabela.fazBuscas(tabela.ENumaChaves, tabela.ENduasChaves, tabela.ENtresChaves);
+        if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){  
+            tabela.fazBuscas(tabela.ENumaChaves, tabela.ENduasChaves, tabela.ENtresChaves);
+        }else{  
+            trie.fazBuscas(trie.ENumaChaves, trie.ENduasChaves, trie.ENtresChaves);
+        }
     }//GEN-LAST:event_btnBuscaENActionPerformed
 
     /**
