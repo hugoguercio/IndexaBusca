@@ -264,15 +264,21 @@
                                           <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnBuscaMulti" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                  <Component id="btn100p" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnBuscaPT" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnBuscaEN" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -289,8 +295,11 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnBuscaMulti" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnBuscaPT" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn100p" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnBuscaEN" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -326,18 +335,37 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBuscaMulti">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jButton1"/>
+                    <Property name="text" type="java.lang.String" value="buscaMultiplas"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscaMultiActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="btnBuscaPT">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jButton1"/>
+                    <Property name="text" type="java.lang.String" value="BuscaPT"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscaPTActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnBuscaEN">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="BuscaEN"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscaENActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btn100p">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="100Palavras"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn100pActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

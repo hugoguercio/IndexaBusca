@@ -60,7 +60,9 @@ public class FrameInicio extends javax.swing.JFrame {
         chaveBuscaField = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnBuscaMulti = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnBuscaPT = new javax.swing.JButton();
+        btnBuscaEN = new javax.swing.JButton();
+        btn100p = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -185,17 +187,34 @@ public class FrameInicio extends javax.swing.JFrame {
             }
         });
 
-        btnBuscaMulti.setText("jButton1");
+        btnBuscaMulti.setText("buscaMultiplas");
         btnBuscaMulti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscaMultiActionPerformed(evt);
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscaPT.setText("BuscaPT");
+        btnBuscaPT.setEnabled(false);
+        btnBuscaPT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscaPTActionPerformed(evt);
+            }
+        });
+
+        btnBuscaEN.setText("BuscaEN");
+        btnBuscaEN.setEnabled(false);
+        btnBuscaEN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscaENActionPerformed(evt);
+            }
+        });
+
+        btn100p.setText("100Palavras");
+        btn100p.setEnabled(false);
+        btn100p.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn100pActionPerformed(evt);
             }
         });
 
@@ -215,12 +234,17 @@ public class FrameInicio extends javax.swing.JFrame {
                                 .addComponent(chaveBuscaField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuscar)))
-                        .addContainerGap(12, Short.MAX_VALUE))
+                        .addGap(0, 1, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(btnBuscaMulti)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(57, 57, 57))))
+                        .addComponent(btn100p)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscaPT))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBuscaEN)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,7 +258,10 @@ public class FrameInicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscaMulti)
-                    .addComponent(jButton1))
+                    .addComponent(btnBuscaPT)
+                    .addComponent(btn100p))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscaEN)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -419,6 +446,12 @@ public class FrameInicio extends javax.swing.JFrame {
                 tamanhoTabelaField.setEditable(false);
                 checkIgnorar.setEnabled(false);
                 jComboBox1.setEnabled(false);
+                btnBuscaEN.setEnabled(true);
+                btnBuscaPT.setEnabled(true);
+                if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){
+                    btn100p.setEnabled(true);
+                }
+                
                 c.memoria();
     
             } else {
@@ -621,10 +654,20 @@ public class FrameInicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscaMultiActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscaPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaPTActionPerformed
         // TODO add your handling code here:
-        tabela.getPalavrasAleatorias();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        tabela.fazBuscas(tabela.PTumaChave, tabela.PTduasChaves, tabela.PTtresChaves);
+    }//GEN-LAST:event_btnBuscaPTActionPerformed
+
+    private void btn100pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn100pActionPerformed
+        // TODO add your handling code here:
+        tabela.palavrasAleatorias();
+    }//GEN-LAST:event_btn100pActionPerformed
+
+    private void btnBuscaENActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaENActionPerformed
+        // TODO add your handling code here:
+        tabela.fazBuscas(tabela.ENumaChaves, tabela.ENduasChaves, tabela.ENtresChaves);
+    }//GEN-LAST:event_btnBuscaENActionPerformed
 
     /**
      * @param args the command line arguments
@@ -664,12 +707,14 @@ public class FrameInicio extends javax.swing.JFrame {
     JFileChooser fc = new JFileChooser();
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn100p;
+    private javax.swing.JButton btnBuscaEN;
     private javax.swing.JButton btnBuscaMulti;
+    private javax.swing.JButton btnBuscaPT;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCarregar;
     private javax.swing.JTextField chaveBuscaField;
     private javax.swing.JCheckBox checkIgnorar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
