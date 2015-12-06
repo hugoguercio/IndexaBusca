@@ -6,8 +6,8 @@
 package GUI;
 
 import indexa.busca.Construtor;
-import EstruturasHashTable.Documento;
-import EstruturasHashTable.Par;
+import indexa.busca.Documento;
+import indexa.busca.Par;
 import EstruturasHashTable.TabelaHash;
 import EstruturasTrie.Trie;
 import java.io.File;
@@ -366,7 +366,7 @@ public class FrameInicio extends javax.swing.JFrame {
                     if(checkIgnorar.isSelected()==false){                        
                         palavrasIgnorar.add(" ");      
                     }else{
-                        Object[] o = c.contaEignora(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+                        Object[] o = c.contaEignora(file);
                         palavrasIgnorar = (ArrayList<String>) o[1];
                     }
                     
@@ -377,7 +377,7 @@ public class FrameInicio extends javax.swing.JFrame {
                     if(checkIgnorar.isSelected()==false){                        
                         palavrasIgnorar.add(" ");      
                     }else{
-                        Object[] o = c.contaEignora(new File("C:\\Users\\Qih\\Desktop\\IndexaBusca\\short-abstracts_pb.ttl"));
+                        Object[] o = c.contaEignora(file);
                         palavrasIgnorar = (ArrayList<String>) o[1];
                     }
                    this.trie = c.criaTrie(file, qtdDocumentos, palavrasIgnorar);
@@ -406,55 +406,62 @@ public class FrameInicio extends javax.swing.JFrame {
         String chave = chaveBuscaField.getText();
         Documento d = new Documento();
         chave = d.trataLinha(chave);
-        //Busca na tabela hash
-        if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){  
-            ArrayList<Par> listPares = tabela.busca(chave);
-            if(listPares==null){
-                showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
-                return;
-            }
-            Par pAux;
-            int docId;
-            String docUrl;
+        String[] chavesMultiplas = d.identificaPalavras(chave);
+        //temos somente uma chave de busca
+        if(chavesMultiplas.length==1){
+            //Busca na tabela hash
+            if(jComboBox1.getSelectedItem().toString() == "Tabela Hash"){  
+                ArrayList<Par> listPares = tabela.busca(chave);
+                if(listPares==null){
+                    showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
+                    return;
+                }
+                Par pAux;
+                int docId;
+                String docUrl;
 
-            DefaultTableModel model = (DefaultTableModel) jTable.getModel();
-            model.setRowCount(0);
-            int j=1;
-            for (int i = 0; i < listPares.size(); i++) {
-                pAux = listPares.get(i);
-                docId = pAux.getDoc_id();
-                docUrl =  "http://dbpedia.org/resource/"+tabela.getIndex(docId).getUrl();
+                DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+                model.setRowCount(0);
+                int j=1;
+                for (int i = 0; i < listPares.size(); i++) {
+                    pAux = listPares.get(i);
+                    docId = pAux.getDoc_id();
+                    docUrl =  "http://dbpedia.org/resource/"+tabela.getIndex(docId).getUrl();
 
-                Object[] ob = {(j),docUrl};
-                model.addRow(ob);
-                j++;
+                    Object[] ob = {(j),docUrl};
+                    model.addRow(ob);
+                    j++;
+                }
             }
-        }
-        //ENTAO VAMOS BUSCAR NA TRIE
-        else{
+            //ENTAO VAMOS BUSCAR NA TRIE
+            else{
+
+                ArrayList<Par> listPares = trie.busca(chave);
+                if(listPares==null){
+                    showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
+                    return;
+                }
+                Par pAux;
+                int docId;
+                String docUrl;
+
+                DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+                model.setRowCount(0);
+                int j=1;
+                for (int i = 1; i < listPares.size(); i++) {
+                    pAux = listPares.get(i);
+                    docId = pAux.getDoc_id();
+                    docUrl =  "http://dbpedia.org/resource/"+trie.getIndex(docId).getUrl();
+
+                    Object[] ob = {(j),docUrl};
+                    model.addRow(ob);
+                    j++;
+                }
+            }
+        }else{//Temos 2 ou mais chaves de busca
             
-            ArrayList<Par> listPares = trie.busca(chave);
-            if(listPares==null){
-                showMessageDialog(null, "Nenhum documento encontrado, desculpe...");
-                return;
-            }
-            Par pAux;
-            int docId;
-            String docUrl;
-
-            DefaultTableModel model = (DefaultTableModel) jTable.getModel();
-            model.setRowCount(0);
-            int j=1;
-            for (int i = 1; i < listPares.size(); i++) {
-                pAux = listPares.get(i);
-                docId = pAux.getDoc_id();
-                docUrl =  "http://dbpedia.org/resource/"+trie.getIndex(docId).getUrl();
-
-                Object[] ob = {(j),docUrl};
-                model.addRow(ob);
-                j++;
-            }
         }
+        
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 

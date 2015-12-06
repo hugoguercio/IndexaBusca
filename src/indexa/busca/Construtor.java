@@ -5,10 +5,7 @@ package indexa.busca;
  * @author Qih
  */
 
-import EstruturasHashTable.Documento;
 import EstruturasHashTable.TabelaHash;
-import EstruturasHashTable.Palavra;
-import EstruturasHashTable.Par;
 import EstruturasTrie.Trie;
 import java.io.BufferedReader;
 import java.io.File;
@@ -124,6 +121,7 @@ public class Construtor {
     */
     public Object[] contaEignora(File file){
         //Variaveis para contagem de tempo
+        System.out.println("comecou");
         long startTime = System.nanoTime();
         double duracaoContaPalavrasSegundos=0;
         
@@ -138,7 +136,7 @@ public class Construtor {
             String[] palavras;
             
             //Se existe documento na linha, insere as palavras em um array.
-            while ((currentLine = br.readLine()) != null) {                
+            while ((currentLine = br.readLine()) != null && qtdDocumentos<400000) {                
                 if(d.identificaDocumento(currentLine) != "id não encontrado"){
                     palavras = d.identificaPalavras(d.trataLinha(d.stringDocumento(currentLine)));
                     for(int i=0;i<palavras.length;i++){
@@ -152,7 +150,7 @@ public class Construtor {
             long duracaoContaPalavras = (endTimeContaPalavras - startTime); 
             duracaoContaPalavrasSegundos = (double)duracaoContaPalavras / 1000000000.0;
             System.out.println("Temos "+ todasPalavras.size() +" palavras em "+qtdDocumentos+" documentos.");
-            System.out.println("Tempo gasto na contagem de palavras únicas: "+duracaoContaPalavrasSegundos+"segundos");
+            System.out.println("Tempo gasto na contagem de palavras: "+duracaoContaPalavrasSegundos+"segundos");
             
             //Ordena as palavras
             Collections.sort(todasPalavras);
@@ -192,11 +190,11 @@ public class Construtor {
                 qtdusadas+=palavrasUnicas.get(i).getCount();
                 palavrasParaIgnorar.add(palavrasUnicas.get(i).getPalavra());
             }            
-            System.out.println("Top 100  representam "+(qtdusadas*100/todasPalavras.size())+"% de todas as palavras do documento.");
+            System.out.println("Top 100  representam "+(qtdusadas*100/todasPalavras.size())+"% de todas as palavras analisadas.");
             long endTimeContaPalavrasUnica = System.nanoTime();
             long duracaoContaPalavrasUnica = (endTimeContaPalavrasUnica - endTimeContaPalavras); 
             Double duracaoContaPalavrasUnicaSegundos = (double)duracaoContaPalavrasUnica / 1000000000.0;
-            System.out.println("Tempo gasto na contagem de palavras: "+duracaoContaPalavrasUnicaSegundos+"segundos");
+            System.out.println("Tempo gasto na contagem de palavras Únicas: "+duracaoContaPalavrasUnicaSegundos+"segundos");
             
             //System.out.println("Palavra mais frenquente: " +palavrasUnicas.get(0).getPalavra()+ " com: "+palavrasUnicas.get(0).getCount()+" ocorrencias.");
             //System.out.println("Segunda Palavra mais frenquente:" +palavrasUnicas.get(1).getPalavra()+ " com: "+palavrasUnicas.get(1).getCount()+" ocorrencias.");
@@ -222,7 +220,7 @@ public class Construtor {
         int rs = 0;        
         try (BufferedReader br = new BufferedReader(new FileReader(file))){
             String doc,currentLine;
-            
+            ArrayList<Palavra> listaPalavras;
             while ((currentLine = br.readLine()) != null && rs<qtdDocumentos) {                
                 //Inicializa um documento
                 Documento d = new Documento();
@@ -235,7 +233,7 @@ public class Construtor {
                     //Captura o texto do documento e faz o tratamento
                     doc = d.stringDocumento(currentLine);                
                     doc = d.trataLinha(doc);                
-                    ArrayList<Palavra> listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
+                    listaPalavras = d.contaPalavras(d.identificaPalavras(doc));
                     d.setPalavrasDistintas(listaPalavras.size());
                     trie.insereDocumento(d);
                     

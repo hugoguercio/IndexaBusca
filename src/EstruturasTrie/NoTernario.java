@@ -5,8 +5,8 @@
  */
 package EstruturasTrie;
 
-import EstruturasHashTable.PalavraUnica;
-import EstruturasHashTable.Par;
+import indexa.busca.PalavraUnica;
+import indexa.busca.Par;
 
 /**
  *

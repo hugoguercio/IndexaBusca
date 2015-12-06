@@ -7,6 +7,9 @@ package EstruturasHashTable;
 
 
 
+import indexa.busca.Par;
+import indexa.busca.Documento;
+import indexa.busca.PalavraUnica;
 import FuncoesHash.FuncaoHashFactory;
 import FuncoesHash.InterfaceHash;
 //import indexa.busca.FuncoesHash;
@@ -198,6 +201,41 @@ public class TabelaHash {
         }
         double d= count * ((Math.log((double)totalDocumentos)/ Math.log(2))/ (double)totalDocumentosComPalavra);
         return d;
+    }
+    
+    /*
+        Método para calcular TF-IDF
+    
+    */
+    public ArrayList<Par> buscaTFIDF(String chave){
+        //Identifica a posição
+        int posicaoIdentificada = this.identificaPosicao(chave);
+        
+        ArrayList<PalavraUnica> listaPalavrasNaPosicao = this.getPosicao(posicaoIdentificada);      
+        ArrayList<Par> listaPares=null;
+        if(listaPalavrasNaPosicao == null){
+            //System.out.println("Palavra não encontrada em nenhum documento!");
+            return listaPares;
+        }else{
+            Par parAux;
+            for(int i=0 ;i<listaPalavrasNaPosicao.size();i++){
+                PalavraUnica pTeste = listaPalavrasNaPosicao.get(i);
+                //Achou a lista de pares da palavra buscada
+                if(pTeste.getPalavra().equals(chave)){
+                    //Para cada par calcula o idf                     
+                    listaPares = pTeste.getPares();
+                    for (int j = 0; j < listaPares.size();j++) {
+                    //esta calculando o mesmo idf para todos
+                        parAux = pTeste.getPares().get(j);
+                        parAux.setIdf(calculaPeso(listaPares.get(j).getCount(), this.getQuantidadeDocumentos(), listaPares.size()));
+                    }
+                    Collections.sort(listaPares);
+                    pTeste.setPares(listaPares);
+                 //   System.out.println("print de teste do doc_id da busca: "+listaPares.get(0).getDoc_id());
+                }
+            }
+            return listaPares;
+        }
     }
     
     /*

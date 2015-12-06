@@ -5,9 +5,9 @@
  */
 package EstruturasTrie;
 
-import EstruturasHashTable.Documento;
-import EstruturasHashTable.PalavraUnica;
-import EstruturasHashTable.Par;
+import indexa.busca.Documento;
+import indexa.busca.PalavraUnica;
+import indexa.busca.Par;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -190,7 +190,6 @@ public class Trie {
     public ArrayList<Par> busca(String chave){
         ArrayList<Par> listaPares=null;
         if(this.contido(chave)==false){
-            System.out.println("SAPORRA NAO EXISTE");
             return listaPares;            
         }
         else{
@@ -220,11 +219,7 @@ public class Trie {
             return listaPares;
         }
     }  
-      
-      
-      
-      
-      
+
     
     // Returns if there is any word in the trie
     // that starts with the given prefix.
